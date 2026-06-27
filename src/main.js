@@ -120,7 +120,10 @@ async function fetchWeather() {
 
     // 3. Map WMO Weather Codes to Emojis and Trigger Animations
     let emoji = '🌤️';
-    if (code === 0) emoji = '☀️'; // Clear
+    if (code === 0) {
+      emoji = '☀️';
+      applyWeatherEffect('sunny');
+    }
     else if (code >= 1 && code <= 3) emoji = '⛅'; // Partly cloudy
     else if (code >= 45 && code <= 48) emoji = '🌫️'; // Fog
     else if (code >= 51 && code <= 67) {
@@ -133,7 +136,7 @@ async function fetchWeather() {
     }
     else if (code >= 95) {
       emoji = '⛈️';
-      applyWeatherEffect('rain');
+      applyWeatherEffect('thunder');
     }
 
     // 4. Update UI and reveal
@@ -144,11 +147,13 @@ async function fetchWeather() {
     // 5. Click event to replay animation
     widget.onclick = () => {
       let effectType = 'rain';
-      if (code >= 71 && code <= 77) effectType = 'snow';
-      // If it's clear/cloudy out, we spawn a random effect as a playful easter egg
-      else if (code === 0 || (code >= 1 && code <= 48)) effectType = Math.random() > 0.5 ? 'rain' : 'snow';
+      if (code === 0) effectType = 'sunny';
+      else if (code >= 71 && code <= 77) effectType = 'snow';
+      else if (code >= 95) effectType = 'thunder';
+      // If it's just cloudy/foggy, spawn random rain or snow as a playful easter egg
+      else if (code >= 1 && code <= 48) effectType = Math.random() > 0.5 ? 'rain' : 'snow';
 
-      applyWeatherEffect(effectType, 3000);
+      applyWeatherEffect(effectType, 4000);
     };
   } catch (error) {
     // If anything fails (adblocker, no location, etc), we do absolutely nothing. 
@@ -192,23 +197,32 @@ function applyWeatherEffect(type, durationMs = 10000) {
   container.style.opacity = '1';
   container.style.transition = 'none';
 
-  const count = type === 'rain' ? 80 : 40; // Adjust density
+  // Handle Lightning
+  if (type === 'thunder') {
+    const flash = document.createElement('div');
+    flash.className = 'lightning-flash';
+    container.appendChild(flash);
+    type = 'rain'; // Also spawn rain
+  }
 
-  for (let i = 0; i < count; i++) {
-    const el = document.createElement('div');
-    el.classList.add(type === 'rain' ? 'rain-drop' : 'snow-flake');
-
-    // Random horizontal position across the screen
-    el.style.left = `${Math.random() * 100}vw`;
-
-    // Vary the speed and delay for a natural effect
-    const duration = type === 'rain' ? (0.6 + Math.random() * 0.4) : (3 + Math.random() * 4);
-    const delay = Math.random() * 3;
-
-    el.style.animationDuration = `${duration}s`;
-    el.style.animationDelay = `${delay}s`;
-
-    container.appendChild(el);
+  // Handle Sunny
+  if (type === 'sunny') {
+    const sun = document.createElement('div');
+    sun.className = 'sun-flare';
+    container.appendChild(sun);
+  } else {
+    // Handle Particle Spawning (Rain/Snow)
+    const count = type === 'rain' ? 80 : 40;
+    for (let i = 0; i < count; i++) {
+      const el = document.createElement('div');
+      el.classList.add(type === 'rain' ? 'rain-drop' : 'snow-flake');
+      el.style.left = `${Math.random() * 100}vw`;
+      const duration = type === 'rain' ? (0.4 + Math.random() * 0.3) : (3 + Math.random() * 4);
+      const delay = Math.random() * 2;
+      el.style.animationDuration = `${duration}s`;
+      el.style.animationDelay = `${delay}s`;
+      container.appendChild(el);
+    }
   }
 
   // Fade out and remove the effect after the specified duration
