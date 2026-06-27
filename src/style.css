@@ -177,7 +177,7 @@ body {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 0.8rem 1.8rem;
+  padding: clamp(0.6rem, 2vw, 0.8rem) clamp(1.2rem, 4vw, 1.8rem);
   border-radius: 100px;
   font-weight: 600;
   text-decoration: none;
@@ -185,6 +185,7 @@ body {
   cursor: pointer;
   border: none;
   font-family: var(--font-main);
+  white-space: nowrap;
 }
 
 .btn-primary {
@@ -231,8 +232,8 @@ body {
 }
 
 .btn-large {
-  padding: 1rem 2.5rem;
-  font-size: 1.1rem;
+  padding: clamp(0.8rem, 3vw, 1rem) clamp(1.5rem, 5vw, 2.5rem);
+  font-size: clamp(0.9rem, 3vw, 1.1rem);
 }
 
 /* =========================================
@@ -405,6 +406,7 @@ body {
 .hero-cta {
   display: flex;
   gap: 1rem;
+  flex-wrap: wrap;
 }
 
 /* =========================================
@@ -646,7 +648,7 @@ body {
   display: inline-flex;
   align-items: center;
   gap: 0.8rem;
-  padding: 1rem 1.5rem;
+  padding: clamp(0.8rem, 3vw, 1rem) clamp(1.2rem, 4vw, 1.5rem);
   background: rgba(255, 255, 255, 0.03);
   border: 1px solid var(--surface-border);
   border-radius: 100px;
@@ -654,6 +656,8 @@ body {
   text-decoration: none;
   font-weight: 500;
   transition: var(--transition);
+  white-space: nowrap;
+  font-size: clamp(0.85rem, 3vw, 1rem);
 }
 
 .contact-pill:hover {
@@ -731,8 +735,8 @@ footer {
   top: -50px;
   opacity: 0;
   width: 1px;
-  height: 60px;
-  background: linear-gradient(to bottom, transparent, rgba(255, 255, 255, 0.6));
+  height: 35px;
+  background: linear-gradient(to bottom, transparent, rgba(255, 255, 255, 0.15));
   animation: fall-rain linear infinite both;
   transform: rotate(5deg);
 }
@@ -750,10 +754,10 @@ footer {
 .lightning-flash {
   position: absolute;
   inset: 0;
-  background-color: rgba(255, 255, 255, 0.8);
+  background-color: rgba(255, 255, 255, 0.12);
   z-index: -1;
   pointer-events: none;
-  animation: flash 4s infinite;
+  animation: flash 6s infinite;
 }
 
 @keyframes flash {

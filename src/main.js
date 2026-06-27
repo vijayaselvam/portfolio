@@ -153,7 +153,7 @@ async function fetchWeather() {
       // If it's just cloudy/foggy, spawn random rain or snow as a playful easter egg
       else if (code >= 1 && code <= 48) effectType = Math.random() > 0.5 ? 'rain' : 'snow';
 
-      applyWeatherEffect(effectType, 4000);
+      applyWeatherEffect(effectType, 3000);
     };
   } catch (error) {
     // If anything fails (adblocker, no location, etc), we do absolutely nothing. 
@@ -186,7 +186,7 @@ let weatherTimer1;
 let weatherTimer2;
 
 // Helper function to spawn weather particles
-function applyWeatherEffect(type, durationMs = 10000) {
+function applyWeatherEffect(type, durationMs = 3000) {
   const container = document.getElementById('weather-effects');
   if (!container) return;
 
