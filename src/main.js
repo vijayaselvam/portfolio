@@ -267,3 +267,43 @@ if (logo) {
     setTimeout(() => wave.remove(), 1000);
   });
 }
+
+// 9. 3D Flip Quotes Animation
+const flipper = document.getElementById('quote-flipper');
+const backText = document.getElementById('quote-back');
+const loveIcon = document.querySelector('.love-icon');
+
+if (flipper && backText && loveIcon) {
+  const triggerFlip = (e) => {
+    if (e && e.type === 'touchstart') {
+      flipper.dataset.touched = 'true';
+    } else if (e && e.type === 'mouseenter' && flipper.dataset.touched === 'true') {
+      setTimeout(() => flipper.dataset.touched = 'false', 500);
+      return;
+    }
+
+    if (flipper.classList.contains('flipped')) return;
+
+    const quotes = [
+      "Quality means doing it right when no one is looking.",
+      "Craftsmanship is the marriage of passion and precision.",
+      "Code is poetry written with logic and relentless hard work.",
+      "Great things are done by a series of small things brought together.",
+      "Passion sparks the idea, hard work builds the reality."
+    ];
+    
+    const randomQuote = quotes[Math.floor(Math.random() * quotes.length)];
+    backText.innerText = `"${randomQuote}"`;
+    
+    flipper.classList.add('flipped');
+    
+    // Flip back after 5 seconds
+    setTimeout(() => {
+      flipper.classList.remove('flipped');
+    }, 5000);
+  };
+
+  // Use mouseenter for hover (desktop) and touchstart for tap (mobile)
+  loveIcon.addEventListener('mouseenter', triggerFlip);
+  loveIcon.addEventListener('touchstart', triggerFlip, { passive: true });
+}

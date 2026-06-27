@@ -742,10 +742,23 @@ footer {
 }
 
 @keyframes fall-rain {
-  0% { transform: translateY(0) rotate(5deg); opacity: 0; }
-  10% { opacity: 1; }
-  80% { opacity: 1; }
-  100% { transform: translateY(100vh) rotate(5deg); opacity: 0; }
+  0% {
+    transform: translateY(0) rotate(5deg);
+    opacity: 0;
+  }
+
+  10% {
+    opacity: 1;
+  }
+
+  80% {
+    opacity: 1;
+  }
+
+  100% {
+    transform: translateY(100vh) rotate(5deg);
+    opacity: 0;
+  }
 }
 
 /* =========================================
@@ -761,10 +774,25 @@ footer {
 }
 
 @keyframes flash {
-  0%, 92%, 96%, 100% { opacity: 0; }
-  93% { opacity: 0.8; }
-  94% { opacity: 0.1; }
-  97% { opacity: 0.5; }
+
+  0%,
+  92%,
+  96%,
+  100% {
+    opacity: 0;
+  }
+
+  93% {
+    opacity: 0.8;
+  }
+
+  94% {
+    opacity: 0.1;
+  }
+
+  97% {
+    opacity: 0.5;
+  }
 }
 
 .sun-flare {
@@ -781,8 +809,15 @@ footer {
 }
 
 @keyframes pulse-sun {
-  0% { transform: scale(1) translate(0, 0); opacity: 0.4; }
-  100% { transform: scale(1.2) translate(5vw, 5vh); opacity: 0.8; }
+  0% {
+    transform: scale(1) translate(0, 0);
+    opacity: 0.4;
+  }
+
+  100% {
+    transform: scale(1.2) translate(5vw, 5vh);
+    opacity: 0.8;
+  }
 }
 
 .snow-flake {
@@ -904,4 +939,63 @@ footer {
 
 .name-flip-container:hover .name-ta {
   transform: translateY(-100%);
+}
+
+/* =========================================
+   FLOATING HEARTS (Footer)
+========================================= */
+.love-icon {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.love-icon:active {
+  transform: scale(0.9);
+}
+
+/* Smooth, passionate pulse */
+.love-icon.love-pulse {
+  animation: smooth-pulse 0.8s ease-out;
+}
+
+@keyframes smooth-pulse {
+  0%, 100% { transform: scale(1); filter: drop-shadow(0 0 0 transparent); }
+  50% { transform: scale(1.3); filter: drop-shadow(0 0 10px rgba(255, 100, 150, 0.8)); }
+}
+
+/* 3D Flip Footer Note */
+.footer-note-wrapper {
+  perspective: 1000px;
+  display: inline-block;
+  margin: 0 auto;
+}
+
+.footer-note-flipper {
+  position: relative;
+  transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  transform-style: preserve-3d;
+}
+
+.footer-note-flipper.flipped {
+  transform: rotateX(180deg);
+}
+
+.footer-note.front,
+.footer-note.back {
+  backface-visibility: hidden;
+  margin: 0;
+}
+
+.footer-note.back {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  transform: rotateX(180deg);
+  font-style: italic;
+  color: var(--text-primary);
+  font-weight: 500;
+  white-space: nowrap;
 }
