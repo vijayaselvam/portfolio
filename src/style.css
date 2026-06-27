@@ -968,14 +968,18 @@ footer {
 /* 3D Flip Footer Note */
 .footer-note-wrapper {
   perspective: 1000px;
-  display: inline-block;
+  display: flex;
+  justify-content: center;
+  width: 100%;
   margin: 0 auto;
 }
 
 .footer-note-flipper {
-  position: relative;
+  display: grid;
   transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   transform-style: preserve-3d;
+  width: 100%;
+  max-width: 600px;
 }
 
 .footer-note-flipper.flipped {
@@ -984,18 +988,21 @@ footer {
 
 .footer-note.front,
 .footer-note.back {
+  grid-area: 1 / 1;
   backface-visibility: hidden;
   margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  width: 100%;
 }
 
 .footer-note.back {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
   transform: rotateX(180deg);
   font-style: italic;
   color: var(--text-primary);
   font-weight: 500;
-  white-space: nowrap;
+  font-size: clamp(0.75rem, 3vw, 0.95rem);
+  padding: 0 1rem;
 }
