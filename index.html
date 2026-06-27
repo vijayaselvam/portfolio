@@ -1,178 +1,213 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vijayaselvam | AI & Software Engineer</title>
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;700;800&display=swap" rel="stylesheet">
-  </head>
-  <body>
-    <header class="header">
-      <nav class="nav-container">
-        <a href="#" class="logo">V<span>.</span></a>
-        <ul class="nav-links">
-          <li><a href="#about">About</a></li>
-          <li><a href="#skills">Skills</a></li>
-          <li><a href="#projects">Projects</a></li>
-          <li><a href="#contact" class="btn-primary">Contact</a></li>
-        </ul>
-        <button class="mobile-menu-btn">☰</button>
-      </nav>
-    </header>
 
-    <main>
-      <!-- Hero Section -->
-      <section id="hero" class="hero section">
-        <div class="hero-content fade-in">
-          <p class="subtitle">Hi, I am Vijayaselvam</p>
-          <h1 class="title">AI Engineer & <br><span class="gradient-text">Full-Stack Developer</span></h1>
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vijayaselvam | Agentic AI Developer</title>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet">
+
+  <!-- Prevent Flash of Unstyled Content -->
+  <style>
+    body {
+      opacity: 0;
+      visibility: hidden;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Animated Aurora Background -->
+  <div class="aurora-bg">
+    <div class="aurora-blob blob-1"></div>
+    <div class="aurora-blob blob-2"></div>
+    <div class="aurora-blob blob-3"></div>
+  </div>
+
+  <!-- Noise Overlay for texture -->
+  <div class="noise-overlay"></div>
+
+  <!-- Weather Animations Layer -->
+  <div id="weather-effects" class="weather-effects"></div>
+
+  <header class="header">
+    <nav class="nav-container">
+      <a href="#" class="logo">V<span class="dot">.</span></a>
+
+      <ul class="nav-links">
+        <li><a href="#about">About & Expertise</a></li>
+        <li><a href="#projects">Work</a></li>
+      </ul>
+
+      <div class="nav-right">
+        <div id="weather-widget" class="weather-pill" style="display: none;">
+          <span class="weather-icon"></span>
+          <span class="weather-text"></span>
+        </div>
+        <a href="#contact" class="btn-primary nav-btn">Let's Talk</a>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <!-- Hero Section -->
+    <section id="hero" class="hero section">
+      <div class="hero-container">
+        <div class="hero-content reveal">
+          <div class="availability-badge">
+            <span class="pulse-dot"></span> Ready to architect your next breakthrough
+          </div>
+          <h1 class="title">
+            Crafting <span class="gradient-text">Intelligent</span><br>
+            Agentic Systems.
+          </h1>
           <p class="description">
-            I specialize in building intelligent applications using Python, LangGraph, and modern web technologies. 
-            Bridging the gap between cutting-edge AI research and scalable software architecture.
+            Leveraging over 5 years of enterprise .NET architecture expertise to engineer sophisticated,
+            <strong style="color: #fff;">next-generation Agentic AI systems</strong> using LangChain, LangGraph, and
+            Python.
           </p>
           <div class="hero-cta">
-            <a href="#projects" class="btn-primary">View My Work</a>
-            <a href="https://github.com/vijayaselvamceemon" target="_blank" class="btn-secondary">GitHub Profile</a>
+            <a href="#projects" class="btn-primary btn-large">Explore Projects</a>
+            <a href="https://github.com/vijayaselvam" target="_blank" class="btn-secondary btn-large">GitHub</a>
           </div>
         </div>
-        <div class="hero-visual fade-in delay-1">
-          <div class="glow-orb"></div>
-          <div class="glass-card tech-badge badge-1">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/c/c3/Python-logo-notext.svg" alt="Python">
-          </div>
-          <div class="glass-card tech-badge badge-2">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/9/99/Unofficial_JavaScript_logo_2.svg" alt="JavaScript">
-          </div>
-          <div class="glass-card tech-badge badge-3">AI Agents</div>
+      </div>
+    </section>
+
+    <!-- Bento Box About/Skills Section -->
+    <section id="about" class="bento-section section">
+      <div class="container">
+        <div class="section-header reveal">
+          <h2 class="section-title">Beyond the Code</h2>
+          <p class="section-subtitle">A fusion of deep enterprise logic and modern AI innovation.</p>
         </div>
-      </section>
 
-      <!-- About Section -->
-      <section id="about" class="about section">
-        <div class="container">
-          <h2 class="section-title slide-up">About Me</h2>
-          <div class="about-grid slide-up delay-1">
-            <div class="about-text glass-panel">
-              <p>I am a passionate software engineer with a strong focus on Artificial Intelligence and Human-in-the-Loop systems. I thrive on solving complex problems and designing robust architectures that can handle dynamic workflows.</p>
-              <br>
-              <p>With experience spanning from deep backend AI integrations (like LangGraph and LLMs) to responsive frontend frameworks, I aim to create seamless and powerful digital experiences.</p>
-            </div>
-            <div class="about-stats">
-              <div class="stat-card glass-panel">
-                <h3 class="stat-num">5+</h3>
-                <p>Years Experience</p>
-              </div>
-              <div class="stat-card glass-panel">
-                <h3 class="stat-num">30+</h3>
-                <p>Projects Completed</p>
-              </div>
+        <div class="bento-grid">
+
+          <!-- Bento Item 1: Intro -->
+          <div class="bento-card span-2 reveal bento-hover">
+            <div class="bento-card-content">
+              <div class="bento-icon">👋</div>
+              <h3>The Journey</h3>
+              <p>Drawing upon a solid 5+ year foundation in scalable .NET enterprise architecture, I am now focused on
+                the frontier of artificial intelligence—architecting sophisticated, autonomous Agentic AI workflows.</p>
             </div>
           </div>
-        </div>
-      </section>
 
-      <!-- Skills Section -->
-      <section id="skills" class="skills section">
-        <div class="container">
-          <h2 class="section-title slide-up">Technical Expertise</h2>
-          <div class="skills-grid slide-up delay-1">
-            
-            <div class="skill-category glass-card hover-glow">
-              <div class="skill-icon">🧠</div>
-              <h3>AI & Data</h3>
-              <p>LangChain, LangGraph, LLMs, Vector Databases, Python, PyTorch, Pandas, Scikit-learn</p>
+          <!-- Bento Item 2: Certifications -->
+          <div class="bento-card bento-accent reveal delay-1 bento-hover">
+            <div class="bento-card-content">
+              <div class="bento-icon">🏅</div>
+              <h3>Certified</h3>
+              <ul class="cert-list">
+                <li>Azure Fundamentals (AZ-900)</li>
+                <li>Azure Data (DP-900)</li>
+                <li>GitHub Copilot</li>
+              </ul>
             </div>
-
-            <div class="skill-category glass-card hover-glow">
-              <div class="skill-icon">⚙️</div>
-              <h3>Backend</h3>
-              <p>Node.js, Express, Python, FastAPI, Django, PostgreSQL, MongoDB, Redis</p>
-            </div>
-
-            <div class="skill-category glass-card hover-glow">
-              <div class="skill-icon">🎨</div>
-              <h3>Frontend</h3>
-              <p>HTML5, CSS3, JavaScript (ES6+), React, Vite, Next.js, Tailwind CSS</p>
-            </div>
-
-            <div class="skill-category glass-card hover-glow">
-              <div class="skill-icon">☁️</div>
-              <h3>DevOps & Tools</h3>
-              <p>Git, GitHub Actions, Docker, AWS, CI/CD, Linux</p>
-            </div>
-
           </div>
+
+          <!-- Bento Item 3: AI Focus -->
+          <div class="bento-card reveal delay-2 bento-hover">
+            <div class="bento-card-content">
+              <div class="bento-icon">🧠</div>
+              <h3>Agentic AI</h3>
+              <p>Specializing in LangChain & LangGraph to build multi-agent systems with persistent memory.</p>
+            </div>
+          </div>
+
+          <!-- Bento Item 4: Cloud Focus -->
+          <div class="bento-card span-2 reveal delay-1 bento-hover">
+            <div class="bento-card-content">
+              <div class="bento-icon">☁️</div>
+              <h3>Azure Foundry Deployments</h3>
+              <p>Passionate about deploying secure, scalable, and cloud-native AI solutions leveraging Microsoft's
+                powerful Azure Foundry ecosystem.</p>
+            </div>
+          </div>
+
         </div>
-      </section>
+      </div>
+    </section>
 
-      <!-- Projects Section -->
-      <section id="projects" class="projects section">
-        <div class="container">
-          <h2 class="section-title slide-up">Featured Projects</h2>
-          <div class="project-grid slide-up delay-1">
-            
-            <!-- Project 1 -->
-            <div class="project-card glass-panel hover-grow">
-              <div class="project-image" style="background: linear-gradient(135deg, #1f1c2c, #928DAB)"></div>
-              <div class="project-content">
-                <div class="project-tags">
-                  <span>Python</span>
-                  <span>LangGraph</span>
-                  <span>HITL</span>
-                </div>
-                <h3>Intelligent Loan Agent</h3>
-                <p>An AI-driven loan sanction application utilizing LangGraph for complex Human-in-the-Loop workflows, allowing persistent state and thread management.</p>
-                <div class="project-links">
-                  <a href="https://github.com/vijayaselvamceemon/langgraph-hitl-loans" target="_blank" class="project-link">View Code →</a>
-                </div>
-              </div>
-            </div>
+    <!-- Projects Section -->
+    <section id="projects" class="projects section">
+      <div class="container">
+        <div class="section-header reveal">
+          <h2 class="section-title">Featured Work</h2>
+        </div>
 
-            <!-- Project 2 -->
-            <div class="project-card glass-panel hover-grow">
-              <div class="project-image" style="background: linear-gradient(135deg, #0f2027, #203a43, #2c5364)"></div>
-              <div class="project-content">
-                <div class="project-tags">
-                  <span>React</span>
-                  <span>Vite</span>
-                  <span>CSS</span>
-                </div>
-                <h3>Modern Web Portal</h3>
-                <p>A highly responsive, visually stunning portfolio application featuring glassmorphism, micro-animations, and integrated CI/CD deployment pipelines.</p>
-                <div class="project-links">
-                  <a href="#" class="project-link">View Code →</a>
-                </div>
-              </div>
+        <div class="project-showcase reveal">
+          <div class="project-visual"
+            style="background: url('https://images.unsplash.com/photo-1620712943543-bcc4688e7485?auto=format&fit=crop&w=800&q=80') center/cover;">
+            <div class="visual-overlay"></div>
+          </div>
+          <div class="project-info">
+            <div class="tags">
+              <span class="tag">LangGraph</span>
+              <span class="tag">Python</span>
+              <span class="tag">HITL</span>
             </div>
-            
+            <h3 class="project-title">Intelligent Loan Agent</h3>
+            <p class="project-desc">A sophisticated AI-driven loan sanction application utilizing LangGraph for complex
+              Human-in-the-Loop workflows. It manages persistent state and multi-threaded conversations flawlessly.</p>
+            <a href="https://github.com/vijayaselvamceemon/langgraph-hitl-loans" target="_blank" class="project-link">
+              View Source Code
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+                <polyline points="12 5 19 12 12 19"></polyline>
+              </svg>
+            </a>
           </div>
         </div>
-      </section>
+      </div>
+    </section>
 
-      <!-- Contact Section -->
-      <section id="contact" class="contact section">
-        <div class="container text-center slide-up">
-          <h2 class="section-title">Let's Connect</h2>
-          <p class="contact-desc">Currently open for new opportunities and collaborations. Whether you have a question or just want to say hi, I'll try my best to get back to you!</p>
-          <a href="mailto:hello@example.com" class="btn-primary btn-large">Say Hello</a>
-          
-          <div class="social-links mt-4">
-            <a href="https://github.com/vijayaselvamceemon" target="_blank" class="social-icon">GitHub</a>
-            <a href="#" target="_blank" class="social-icon">LinkedIn</a>
-            <a href="#" target="_blank" class="social-icon">Twitter</a>
+    <!-- Contact Section -->
+    <section id="contact" class="contact section">
+      <div class="container">
+        <div class="contact-box reveal bento-hover">
+          <h2 class="contact-title">Let's build something <span class="gradient-text">extraordinary.</span></h2>
+          <p class="contact-subtitle">
+            Always learning. Specializing in <span class="gradient-text">Agentic AI</span> & <span
+              style="color: #00F2FE; font-weight: 600;">Azure</span>.
+          </p>
+
+          <div class="contact-methods">
+            <a href="mailto:vijayaselvamceemon@gmail.com" class="contact-pill">
+              <span class="pill-icon">✉️</span> Drop a Message
+            </a>
+            <a href="https://www.linkedin.com/in/vijaya-selvam-ceemon-599271141/" target="_blank" class="contact-pill">
+              <span class="pill-icon">💼</span> LinkedIn Profile
+            </a>
+            <a href="https://github.com/vijayaselvam" target="_blank" class="contact-pill">
+              <span class="pill-icon">🐙</span> GitHub
+            </a>
           </div>
         </div>
-      </section>
-    </main>
+      </div>
+    </section>
+  </main>
 
-    <footer>
-      <p>Designed & Built by Vijayaselvam © 2026</p>
-    </footer>
+  <footer>
+    <div class="container footer-content">
+      <p>© 2026
+        <span class="name-flip-container">
+          <span class="name-en">Vijaya Selvam Ceemon</span>
+          <span class="name-ta">விஜய செல்வம் சீமோன்</span>
+        </span>. All rights reserved.
+      </p>
+      <p class="footer-note">Architected with purpose, crafted with ❤️</p>
+    </div>
+  </footer>
 
-    <script type="module" src="/src/main.js"></script>
-  </body>
+  <script type="module" src="/src/main.js"></script>
+</body>
+
 </html>
