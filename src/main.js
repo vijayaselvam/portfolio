@@ -341,29 +341,93 @@ function applyWeatherEffect(type, durationMs = 3000, forceNight = null) {
       frost.style.animationDelay = `${Math.random() * 2}s`;
       container.appendChild(frost);
     }
-  } else if (type === 'rain' || type === 'snow' || type === 'storm' || type === 'thunder') {
-    if (type === 'rain' || type === 'snow') {
-      const celestial = isNight ? createMoon(`moon-${type}`) : (() => {
+  } else if (type === 'snow') {
+    const celestial = isNight ? createMoon('moon-snow') : (() => {
+      const el = document.createElement('div');
+      el.className = 'sun sun-snow';
+      return el;
+    })();
+    container.appendChild(celestial);
+
+    const snowBg = document.createElement('div');
+    snowBg.className = 'weather-bg-snow';
+    container.appendChild(snowBg);
+
+    for (let i = 0; i < 120; i++) {
+      const flake = document.createElement('div');
+      flake.className = 'snow-flake';
+
+      const size = Math.random() * 5 + 2;
+      flake.style.width = `${size}px`;
+      flake.style.height = `${size}px`;
+
+      if (size > 5.5) flake.style.filter = 'blur(2px)';
+      else if (size < 3) flake.style.opacity = '0.5';
+
+      flake.style.left = `${Math.random() * 100}vw`;
+      flake.style.setProperty('--sway', `${(Math.random() - 0.5) * 30}vw`);
+      flake.style.setProperty('--max-opacity', `${Math.random() * 0.5 + 0.4}`);
+
+      const duration = 6 + Math.random() * 10;
+      const delay = Math.random() * -15;
+      flake.style.animationDuration = `${duration}s`;
+      flake.style.animationDelay = `${delay}s`;
+
+      container.appendChild(flake);
+    }
+  } else if (type === 'rain' || type === 'storm' || type === 'thunder') {
+    if (type === 'rain') {
+      const celestial = isNight ? createMoon('moon-rain') : (() => {
         const el = document.createElement('div');
-        el.className = `sun sun-${type}`;
+        el.className = 'sun sun-rain';
         return el;
       })();
       container.appendChild(celestial);
     }
 
-    const isRain = type === 'rain' || type === 'storm' || type === 'thunder';
+    const rainBg = document.createElement('div');
+    rainBg.className = 'weather-bg-rain';
+    container.appendChild(rainBg);
+
     const isStorm = type === 'storm' || type === 'thunder';
-    const count = isRain ? (isStorm ? 120 : 80) : 40;
+    const count = isStorm ? 200 : 120; 
 
     for (let i = 0; i < count; i++) {
       const el = document.createElement('div');
-      el.classList.add(isRain ? 'rain-drop' : 'snow-flake');
-      el.style.left = `${Math.random() * 100}vw`;
-      const duration = isRain ? ((isStorm ? 0.2 : 0.4) + Math.random() * 0.3) : (3 + Math.random() * 4);
-      const delay = Math.random() * 2;
+      el.classList.add('rain-drop');
+      
+      const depth = Math.random(); 
+      const isForeground = depth > 0.8;
+      const isBackground = depth < 0.3;
+
+      if (isForeground) {
+        el.style.width = '1.5px';
+        el.style.height = '25px';
+        el.style.filter = 'blur(1px)';
+        el.style.setProperty('--drop-opacity', `${0.2 + Math.random() * 0.15}`);
+        el.style.zIndex = '5';
+      } else if (isBackground) {
+        el.style.width = '1px';
+        el.style.height = '10px';
+        el.style.setProperty('--drop-opacity', `${0.05 + Math.random() * 0.05}`);
+        el.style.zIndex = '-2';
+      } else {
+        el.style.width = '1px';
+        el.style.height = '15px';
+        el.style.setProperty('--drop-opacity', `${0.1 + Math.random() * 0.1}`);
+        el.style.zIndex = '-1';
+      }
+
+      el.style.left = `${Math.random() * 110 - 10}vw`; 
+
+      const baseDuration = isForeground ? 0.2 : (isBackground ? 0.6 : 0.4);
+      const duration = (isStorm ? baseDuration * 0.5 : baseDuration) + Math.random() * 0.2;
+      const delay = Math.random() * -5;
+      
       el.style.animationDuration = `${duration}s`;
       el.style.animationDelay = `${delay}s`;
-      if (isStorm && isRain) {
+      
+      if (isStorm) {
         el.classList.add('storm-drop');
       }
       container.appendChild(el);
@@ -457,7 +521,7 @@ if (flipper && backText && loveIcon) {
 // ==========================================
 // FOR TESTING PURPOSES ONLY: Weather Panel
 // ==========================================
-const ENABLE_TEST_PANEL = false; // Set to true to show weather test buttons
+const ENABLE_TEST_PANEL = true; // Set to true to show weather test buttons
 
 if (ENABLE_TEST_PANEL) {
   const testPanel = document.createElement('div');
@@ -494,4 +558,25 @@ if (ENABLE_TEST_PANEL) {
   });
 
   document.body.appendChild(testPanel);
+}
+
+// ==========================================
+// 9. Mobile Menu Toggle
+// ==========================================
+const hamburger = document.querySelector('.hamburger-menu');
+const navLinks = document.querySelector('.nav-links');
+
+if (hamburger && navLinks) {
+  hamburger.addEventListener('click', () => {
+    hamburger.classList.toggle('active');
+    navLinks.classList.toggle('active');
+  });
+
+  // Close menu when clicking a link
+  document.querySelectorAll('.nav-links a').forEach(link => {
+    link.addEventListener('click', () => {
+      hamburger.classList.remove('active');
+      navLinks.classList.remove('active');
+    });
+  });
 }
