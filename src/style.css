@@ -963,11 +963,11 @@ footer {
   width: 100vw;
   height: 100vh;
   pointer-events: none;
-  z-index: 9998;
-  /* Overlaps navbar but sits just behind foreground weather effects */
+  z-index: -2;
+  /* Placed behind main text content so giant moon/sun don't cover text */
   overflow: hidden;
   transition: opacity 1s ease;
-  transform: translateZ(90px); /* Safari GPU Layering */
+  transform: translateZ(-100px); /* Force GPU layering for Safari */
 }
 
 .weather-effects {
@@ -1101,8 +1101,8 @@ footer {
 
 .storm-cloud {
   position: fixed;
-  top: -80px;
-  right: -80px;
+  top: 120px;
+  right: 2vw;
   width: 400px;
   height: 300px;
   border-radius: 50%;
@@ -1140,12 +1140,12 @@ footer {
 /* SUN EFFECT (Attractive) */
 .sun {
   position: fixed;
-  top: -15vh;
-  right: -10vw;
-  width: 50vw;
-  height: 50vw;
-  max-width: 450px;
-  max-height: 450px;
+  top: 120px;
+  right: 5vw;
+  width: 40vw;
+  height: 40vw;
+  max-width: 350px;
+  max-height: 350px;
   background: radial-gradient(circle, rgba(255, 235, 100, 0.6) 0%, rgba(255, 165, 0, 0.3) 30%, transparent 70%);
   border-radius: 50%;
   z-index: -1;
@@ -1748,21 +1748,22 @@ footer {
   .sun {
     width: 250px !important;
     height: 250px !important;
-    top: -20px !important;
-    right: -20px !important;
+    top: 90px !important;
+    right: 5vw !important;
     opacity: 0.8 !important;
   }
   
   .moon-wrapper {
     width: 80px !important;
     height: 80px !important;
-    top: 5vh !important;
+    top: 100px !important;
     opacity: 0.8 !important;
   }
   
   .storm-cloud {
     width: 250px !important;
     height: 200px !important;
-    top: -20px !important;
+    top: 90px !important;
+    right: 5vw !important;
   }
 }
