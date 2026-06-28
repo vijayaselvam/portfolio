@@ -241,24 +241,28 @@ function createMoon(extraClass = '') {
 function applyWeatherEffect(type, durationMs = 3000, forceNight = null) {
   const isNight = forceNight !== null ? forceNight : window.isNightGlobal;
   const container = document.getElementById('weather-effects');
-  if (!container) return;
+  const bgContainer = document.getElementById('weather-effects-bg');
+  if (!container || !bgContainer) return;
 
   // Clear existing timeouts and elements so it resets smoothly if clicked repeatedly
   clearTimeout(weatherTimer1);
   clearTimeout(weatherTimer2);
   container.innerHTML = '';
+  bgContainer.innerHTML = '';
   container.style.opacity = '1';
+  bgContainer.style.opacity = '1';
   container.style.transition = 'none';
+  bgContainer.style.transition = 'none';
 
   if (type === 'thunder' || type === 'storm') {
     const flash = document.createElement('div');
     flash.className = 'lightning-flash';
-    container.appendChild(flash);
+    bgContainer.appendChild(flash);
 
     // Add the top-right focal storm cloud
     const cloud = document.createElement('div');
     cloud.className = 'storm-cloud';
-    container.appendChild(cloud);
+    bgContainer.appendChild(cloud);
 
     // Add realistic lightning bolts striking from the cloud
     const boltCount = type === 'storm' ? 2 : 1;
@@ -289,7 +293,7 @@ function applyWeatherEffect(type, durationMs = 3000, forceNight = null) {
             <polygon points="70,0 20,90 55,90 0,200 90,100 45,100 100,0" fill="#ffffff" filter="url(#glow-${i})" />
         </svg>
         `;
-      container.appendChild(bolt);
+      bgContainer.appendChild(bolt);
     }
   }
 
@@ -308,10 +312,10 @@ function applyWeatherEffect(type, durationMs = 3000, forceNight = null) {
       dust.style.animationDelay = `${Math.random() * 2}s`;
       container.appendChild(dust);
     }
-    container.appendChild(sun);
+    bgContainer.appendChild(sun);
   } else if (type === 'night' || type === 'evening') {
     const celestial = createMoon();
-    container.appendChild(celestial);
+    bgContainer.appendChild(celestial);
 
     for (let i = 0; i < 50; i++) {
       const star = document.createElement('div');
@@ -328,7 +332,7 @@ function applyWeatherEffect(type, durationMs = 3000, forceNight = null) {
       el.className = 'sun sun-cool';
       return el;
     })();
-    container.appendChild(celestial);
+    bgContainer.appendChild(celestial);
 
     // Premium Aurora Borealis effect
     const auroraContainer = document.createElement('div');
@@ -336,14 +340,14 @@ function applyWeatherEffect(type, durationMs = 3000, forceNight = null) {
     const aurora = document.createElement('div');
     aurora.className = 'aurora';
     auroraContainer.appendChild(aurora);
-    container.appendChild(auroraContainer);
+    bgContainer.appendChild(auroraContainer);
 
     const mist1 = document.createElement('div');
     mist1.className = 'mist mist-1';
     const mist2 = document.createElement('div');
     mist2.className = 'mist mist-2';
-    container.appendChild(mist1);
-    container.appendChild(mist2);
+    bgContainer.appendChild(mist1);
+    bgContainer.appendChild(mist2);
 
     for (let i = 0; i < 20; i++) {
       const frost = document.createElement('div');
@@ -360,11 +364,11 @@ function applyWeatherEffect(type, durationMs = 3000, forceNight = null) {
       el.className = 'sun sun-snow';
       return el;
     })();
-    container.appendChild(celestial);
+    bgContainer.appendChild(celestial);
 
     const snowBg = document.createElement('div');
     snowBg.className = 'weather-bg-snow';
-    container.appendChild(snowBg);
+    bgContainer.appendChild(snowBg);
 
     for (let i = 0; i < 120; i++) {
       const flake = document.createElement('div');
@@ -395,12 +399,12 @@ function applyWeatherEffect(type, durationMs = 3000, forceNight = null) {
         el.className = 'sun sun-rain';
         return el;
       })();
-      container.appendChild(celestial);
+      bgContainer.appendChild(celestial);
     }
 
     const rainBg = document.createElement('div');
     rainBg.className = 'weather-bg-rain';
-    container.appendChild(rainBg);
+    bgContainer.appendChild(rainBg);
 
     const isStorm = type === 'storm' || type === 'thunder';
     const count = isStorm ? 200 : 120;
@@ -423,12 +427,12 @@ function applyWeatherEffect(type, durationMs = 3000, forceNight = null) {
         el.style.width = '1px';
         el.style.height = '10px';
         el.style.setProperty('--drop-opacity', `${0.05 + Math.random() * 0.05}`);
-        el.style.zIndex = '-2';
+        el.style.zIndex = '1';
       } else {
         el.style.width = '1px';
         el.style.height = '15px';
         el.style.setProperty('--drop-opacity', `${0.1 + Math.random() * 0.1}`);
-        el.style.zIndex = '-1';
+        el.style.zIndex = '2';
       }
 
       el.style.left = `${Math.random() * 110 - 10}vw`;
@@ -450,12 +454,16 @@ function applyWeatherEffect(type, durationMs = 3000, forceNight = null) {
   // Fade out and remove the effect after the specified duration
   weatherTimer1 = setTimeout(() => {
     container.style.transition = 'opacity 3s ease-out';
+    bgContainer.style.transition = 'opacity 3s ease-out';
     container.style.opacity = '0';
+    bgContainer.style.opacity = '0';
 
     // Completely clear the DOM elements after the fade-out completes
     weatherTimer2 = setTimeout(() => {
       container.innerHTML = '';
+      bgContainer.innerHTML = '';
       container.style.opacity = '1'; // Reset for future calls if needed
+      bgContainer.style.opacity = '1';
     }, 3000);
   }, durationMs);
 }

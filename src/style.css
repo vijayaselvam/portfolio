@@ -956,6 +956,20 @@ footer {
 /* =========================================
    WEATHER ANIMATIONS
 ========================================= */
+.weather-effects-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 9998;
+  /* Overlaps navbar but sits just behind foreground weather effects */
+  overflow: hidden;
+  transition: opacity 1s ease;
+  transform: translateZ(90px); /* Safari GPU Layering */
+}
+
 .weather-effects {
   position: fixed;
   top: 0;
@@ -967,6 +981,7 @@ footer {
   /* Over everything so particles fall realistically over the navbar */
   overflow: hidden;
   transition: opacity 1s ease;
+  transform: translateZ(100px); /* Force GPU layering for Safari */
 }
 
 .weather-bg-rain {
@@ -1727,5 +1742,27 @@ footer {
   100% {
     opacity: 1;
     transform: scale(1.4);
+  }
+}
+@media (max-width: 900px) {
+  .sun {
+    width: 250px !important;
+    height: 250px !important;
+    top: -20px !important;
+    right: -20px !important;
+    opacity: 0.8 !important;
+  }
+  
+  .moon-wrapper {
+    width: 80px !important;
+    height: 80px !important;
+    top: 5vh !important;
+    opacity: 0.8 !important;
+  }
+  
+  .storm-cloud {
+    width: 250px !important;
+    height: 200px !important;
+    top: -20px !important;
   }
 }
