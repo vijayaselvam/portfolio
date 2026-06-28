@@ -815,9 +815,27 @@ body {
   .visual-overlay {
     background: linear-gradient(to bottom, transparent, var(--surface-color));
   }
+  
+  .project-visual {
+    min-height: 180px; /* Reduce image height to make it less lengthy */
+  }
 
   .project-info {
-    padding: 2.5rem;
+    padding: 1.5rem; /* Reduce padding for a tighter, square feel */
+  }
+  
+  .project-title {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  .project-desc {
+    font-size: 0.95rem;
+    margin-bottom: 1.5rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 3; /* Limit description to 3 lines on mobile */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
   }
 }
 
