@@ -53,12 +53,12 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
   });
 });
 
-// 4. Bento Box Hover Glow Effect
+// 4. Bento Box & Glass Button Hover Glow Effect
 const handleBentoHover = (e) => {
   const clientX = e.touches ? e.touches[0].clientX : e.clientX;
   const clientY = e.touches ? e.touches[0].clientY : e.clientY;
 
-  for (const card of document.getElementsByClassName("bento-hover")) {
+  for (const card of document.querySelectorAll(".bento-hover, .btn-secondary")) {
     const rect = card.getBoundingClientRect(),
       x = clientX - rect.left,
       y = clientY - rect.top;
@@ -74,12 +74,21 @@ if (aboutSection) {
   aboutSection.addEventListener("touchmove", handleBentoHover, { passive: true });
 }
 
+// Add generic listener for buttons outside the about section (like hero section)
+document.addEventListener("mousemove", (e) => {
+  // Only trigger if mouse is actually over a button, for performance
+  if(e.target.closest('.btn-secondary')) {
+     handleBentoHover(e);
+  }
+});
+
 // Enable Safari hover state & touch handling for cards
-for (const card of document.getElementsByClassName("bento-hover")) {
+for (const card of document.querySelectorAll(".bento-hover, .btn-secondary")) {
   card.addEventListener("touchstart", (e) => {
     handleBentoHover(e);
     card.classList.add("touch-hover");
   }, { passive: true });
+
 
   card.addEventListener("touchend", () => {
     card.classList.remove("touch-hover");
