@@ -834,7 +834,7 @@ body {
 }
 
 .contact-title {
-  font-size: clamp(2rem, 8vw, 3.5rem);
+  font-size: clamp(1.5rem, 6vw, 3.5rem);
   font-weight: 800;
   margin-bottom: 1rem;
   overflow-wrap: break-word;
@@ -948,6 +948,7 @@ footer {
   z-index: 9999;
   /* Over everything so particles fall realistically over the navbar */
   overflow: hidden;
+  transition: opacity 1s ease;
 }
 
 .weather-bg-rain {

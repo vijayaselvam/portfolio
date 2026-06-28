@@ -449,14 +449,14 @@ function applyWeatherEffect(type, durationMs = 3000, forceNight = null) {
 
   // Fade out and remove the effect after the specified duration
   weatherTimer1 = setTimeout(() => {
-    container.style.transition = 'opacity 1s ease';
+    container.style.transition = 'opacity 3s ease-out';
     container.style.opacity = '0';
 
     // Completely clear the DOM elements after the fade-out completes
     weatherTimer2 = setTimeout(() => {
       container.innerHTML = '';
       container.style.opacity = '1'; // Reset for future calls if needed
-    }, 1000);
+    }, 3000);
   }, durationMs);
 }
 
