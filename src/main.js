@@ -390,13 +390,13 @@ function applyWeatherEffect(type, durationMs = 3000, forceNight = null) {
     container.appendChild(rainBg);
 
     const isStorm = type === 'storm' || type === 'thunder';
-    const count = isStorm ? 200 : 120; 
+    const count = isStorm ? 200 : 120;
 
     for (let i = 0; i < count; i++) {
       const el = document.createElement('div');
       el.classList.add('rain-drop');
-      
-      const depth = Math.random(); 
+
+      const depth = Math.random();
       const isForeground = depth > 0.8;
       const isBackground = depth < 0.3;
 
@@ -418,15 +418,15 @@ function applyWeatherEffect(type, durationMs = 3000, forceNight = null) {
         el.style.zIndex = '-1';
       }
 
-      el.style.left = `${Math.random() * 110 - 10}vw`; 
+      el.style.left = `${Math.random() * 110 - 10}vw`;
 
       const baseDuration = isForeground ? 0.2 : (isBackground ? 0.6 : 0.4);
       const duration = (isStorm ? baseDuration * 0.5 : baseDuration) + Math.random() * 0.2;
       const delay = Math.random() * -5;
-      
+
       el.style.animationDuration = `${duration}s`;
       el.style.animationDelay = `${delay}s`;
-      
+
       if (isStorm) {
         el.classList.add('storm-drop');
       }
@@ -521,7 +521,7 @@ if (flipper && backText && loveIcon) {
 // ==========================================
 // FOR TESTING PURPOSES ONLY: Weather Panel
 // ==========================================
-const ENABLE_TEST_PANEL = true; // Set to true to show weather test buttons
+const ENABLE_TEST_PANEL = false; // Set to true to show weather test buttons
 
 if (ENABLE_TEST_PANEL) {
   const testPanel = document.createElement('div');
