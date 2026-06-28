@@ -54,16 +54,41 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 });
 
 // 4. Bento Box Hover Glow Effect
-document.getElementById("about").onmousemove = e => {
+const handleBentoHover = (e) => {
+  const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+  const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+
   for (const card of document.getElementsByClassName("bento-hover")) {
     const rect = card.getBoundingClientRect(),
-      x = e.clientX - rect.left,
-      y = e.clientY - rect.top;
+      x = clientX - rect.left,
+      y = clientY - rect.top;
 
     card.style.setProperty("--mouse-x", `${x}px`);
     card.style.setProperty("--mouse-y", `${y}px`);
   }
 };
+
+const aboutSection = document.getElementById("about");
+if (aboutSection) {
+  aboutSection.addEventListener("mousemove", handleBentoHover);
+  aboutSection.addEventListener("touchmove", handleBentoHover, { passive: true });
+}
+
+// Enable Safari hover state & touch handling for cards
+for (const card of document.getElementsByClassName("bento-hover")) {
+  card.addEventListener("touchstart", (e) => {
+    handleBentoHover(e);
+    card.classList.add("touch-hover");
+  }, { passive: true });
+  
+  card.addEventListener("touchend", () => {
+    card.classList.remove("touch-hover");
+  }, { passive: true });
+  
+  card.addEventListener("touchcancel", () => {
+    card.classList.remove("touch-hover");
+  }, { passive: true });
+}
 
 // 5. Premium 3D Tilt Effect for Cards
 const tiltElements = document.querySelectorAll('.bento-card, .project-showcase');
@@ -118,26 +143,35 @@ async function fetchWeather() {
     const temp = Math.round(weatherData.current_weather.temperature);
     const code = weatherData.current_weather.weathercode;
 
+    const isApiDay = weatherData.current_weather.is_day;
+    const hour = new Date().getHours();
+    const actualIsNight = isApiDay !== undefined ? isApiDay === 0 : (hour < 6 || hour >= 18);
+
+    const determineEffect = (wCode, wTemp) => {
+      if (wCode >= 95) return 'storm';
+      if (wCode >= 71 && wCode <= 77) return wTemp > 15 ? 'rain' : 'snow';
+      if (wCode >= 51 && wCode <= 67) return 'rain';
+      if (wCode === 0) return actualIsNight ? 'night' : (wTemp <= 15 ? 'cool' : 'sunny');
+      if (wCode >= 1 && wCode <= 48) {
+        if (wTemp >= 30) return 'sunny';
+        if (wTemp <= 15) return 'cool';
+        return actualIsNight ? 'night' : 'sunny';
+      }
+      return actualIsNight ? 'night' : 'sunny';
+    };
+
+    const effectType = determineEffect(code, temp);
+
     // 3. Map WMO Weather Codes to Emojis and Trigger Animations
     let emoji = '🌤️';
-    if (code === 0) {
-      emoji = '☀️';
-      applyWeatherEffect('sunny');
-    }
-    else if (code >= 1 && code <= 3) emoji = '⛅'; // Partly cloudy
-    else if (code >= 45 && code <= 48) emoji = '🌫️'; // Fog
-    else if (code >= 51 && code <= 67) {
-      emoji = '🌧️';
-      applyWeatherEffect('rain');
-    }
-    else if (code >= 71 && code <= 77) {
-      emoji = '❄️';
-      applyWeatherEffect('snow');
-    }
-    else if (code >= 95) {
-      emoji = '⛈️';
-      applyWeatherEffect('thunder');
-    }
+    if (code === 0) emoji = actualIsNight ? '🌙' : '☀️';
+    else if (code >= 1 && code <= 3) emoji = actualIsNight ? '☁️' : '⛅';
+    else if (code >= 45 && code <= 48) emoji = '🌫️';
+    else if (code >= 51 && code <= 67) emoji = '🌧️';
+    else if (code >= 71 && code <= 77) emoji = '❄️';
+    else if (code >= 95) emoji = '⛈️';
+
+    applyWeatherEffect(effectType);
 
     // 4. Update UI and reveal
     widget.innerHTML = `<span class="weather-icon">${emoji}</span><span class="weather-text">${temp}°C in ${city}</span>`;
@@ -146,14 +180,7 @@ async function fetchWeather() {
 
     // 5. Click event to replay animation
     widget.onclick = () => {
-      let effectType = 'rain';
-      if (code === 0) effectType = 'sunny';
-      else if (code >= 71 && code <= 77) effectType = 'snow';
-      else if (code >= 95) effectType = 'thunder';
-      // If it's just cloudy/foggy, spawn random rain or snow as a playful easter egg
-      else if (code >= 1 && code <= 48) effectType = Math.random() > 0.5 ? 'rain' : 'snow';
-
-      applyWeatherEffect(effectType, 3000);
+      applyWeatherEffect(determineEffect(code, temp), 4000);
     };
   } catch (error) {
     // If anything fails (adblocker, no location, etc), we do absolutely nothing. 
@@ -197,30 +224,75 @@ function applyWeatherEffect(type, durationMs = 3000) {
   container.style.opacity = '1';
   container.style.transition = 'none';
 
-  // Handle Lightning
-  if (type === 'thunder') {
+  if (type === 'thunder' || type === 'storm') {
     const flash = document.createElement('div');
     flash.className = 'lightning-flash';
     container.appendChild(flash);
-    type = 'rain'; // Also spawn rain
   }
 
-  // Handle Sunny
   if (type === 'sunny') {
     const sun = document.createElement('div');
-    sun.className = 'sun-flare';
+    sun.className = 'sun';
+    const ray = document.createElement('div');
+    ray.className = 'sun-ray';
+    sun.appendChild(ray);
+    for (let i = 0; i < 30; i++) {
+        const dust = document.createElement('div');
+        dust.className = 'sun-dust';
+        dust.style.left = `${Math.random() * 100}vw`;
+        dust.style.top = `${Math.random() * 100}vh`;
+        dust.style.animationDuration = `${3 + Math.random() * 4}s`;
+        dust.style.animationDelay = `${Math.random() * 2}s`;
+        container.appendChild(dust);
+    }
     container.appendChild(sun);
-  } else {
-    // Handle Particle Spawning (Rain/Snow)
-    const count = type === 'rain' ? 80 : 40;
+  } else if (type === 'night' || type === 'evening') {
+    const moon = document.createElement('div');
+    moon.className = 'moon';
+    container.appendChild(moon);
+
+    for (let i = 0; i < 50; i++) {
+      const star = document.createElement('div');
+      star.className = 'star';
+      star.style.left = `${Math.random() * 100}vw`;
+      star.style.top = `${Math.random() * 100}vh`;
+      star.style.animationDuration = `${1 + Math.random() * 3}s`;
+      star.style.animationDelay = `${Math.random() * 2}s`;
+      container.appendChild(star);
+    }
+  } else if (type === 'cool') {
+     const mist1 = document.createElement('div');
+     mist1.className = 'mist mist-1';
+     const mist2 = document.createElement('div');
+     mist2.className = 'mist mist-2';
+     container.appendChild(mist1);
+     container.appendChild(mist2);
+
+     for (let i = 0; i < 20; i++) {
+       const frost = document.createElement('div');
+       frost.className = 'frost';
+       frost.style.left = `${Math.random() * 100}vw`;
+       frost.style.top = `${Math.random() * 100}vh`;
+       frost.style.animationDuration = `${4 + Math.random() * 4}s`;
+       frost.style.animationDelay = `${Math.random() * 2}s`;
+       container.appendChild(frost);
+     }
+  } else if (type === 'rain' || type === 'snow' || type === 'storm' || type === 'thunder') {
+    const isRain = type === 'rain' || type === 'storm' || type === 'thunder';
+    const isStorm = type === 'storm' || type === 'thunder';
+    const count = isRain ? (isStorm ? 120 : 80) : 40;
+    
     for (let i = 0; i < count; i++) {
       const el = document.createElement('div');
-      el.classList.add(type === 'rain' ? 'rain-drop' : 'snow-flake');
+      el.classList.add(isRain ? 'rain-drop' : 'snow-flake');
       el.style.left = `${Math.random() * 100}vw`;
-      const duration = type === 'rain' ? (0.4 + Math.random() * 0.3) : (3 + Math.random() * 4);
+      const duration = isRain ? ((isStorm ? 0.2 : 0.4) + Math.random() * 0.3) : (3 + Math.random() * 4);
       const delay = Math.random() * 2;
       el.style.animationDuration = `${duration}s`;
       el.style.animationDelay = `${delay}s`;
+      if (isStorm && isRain) {
+          el.classList.add('storm-drop');
+      }
       container.appendChild(el);
     }
   }
@@ -291,12 +363,12 @@ if (flipper && backText && loveIcon) {
       "Great things are done by a series of small things brought together.",
       "Passion sparks the idea, hard work builds the reality."
     ];
-    
+
     const randomQuote = quotes[Math.floor(Math.random() * quotes.length)];
     backText.innerText = `"${randomQuote}"`;
-    
+
     flipper.classList.add('flipped');
-    
+
     // Flip back after 5 seconds
     setTimeout(() => {
       flipper.classList.remove('flipped');
