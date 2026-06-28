@@ -153,6 +153,24 @@ body {
   filter: brightness(1.2) hue-rotate(45deg);
 }
 
+/* On touch devices where hover isn't possible, animate it automatically for a premium feel */
+@media (hover: none) {
+  .gradient-text {
+    animation: mobile-gradient-pulse 4s infinite alternate ease-in-out;
+  }
+}
+
+@keyframes mobile-gradient-pulse {
+  0% {
+    background-position: left center;
+    filter: brightness(1) hue-rotate(0deg);
+  }
+  100% {
+    background-position: right center;
+    filter: brightness(1.2) hue-rotate(45deg);
+  }
+}
+
 .section-header {
   margin-bottom: 3rem;
 }
@@ -521,7 +539,25 @@ body {
 /* =========================================
    PROJECT SHOWCASE
 ========================================= */
+.projects-carousel {
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  gap: 2rem;
+  padding: 1rem 2rem 3rem 2rem;
+  /* Hide scrollbar for a cleaner look */
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE/Edge */
+}
+
+.projects-carousel::-webkit-scrollbar {
+  display: none; /* Chrome/Safari */
+}
+
 .project-showcase {
+  flex: 0 0 90%;
+  max-width: 900px;
+  scroll-snap-align: center;
   display: grid;
   grid-template-columns: 1.2fr 1fr;
   background: var(--surface-color);
@@ -534,11 +570,14 @@ body {
 .project-showcase:hover {
   transform: translateY(-5px);
   border-color: rgba(255, 255, 255, 0.15);
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+  box-shadow: 
+    0 15px 35px rgba(0, 0, 0, 0.25),
+    0 5px 20px rgba(127, 0, 255, 0.08),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.05);
 }
 
 .project-visual {
-  min-height: 350px;
+  min-height: 250px;
   position: relative;
 }
 
@@ -549,7 +588,7 @@ body {
 }
 
 .project-info {
-  padding: 4rem;
+  padding: clamp(1.5rem, 3vw, 3rem);
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -557,6 +596,7 @@ body {
 
 .tags {
   display: flex;
+  flex-wrap: wrap;
   gap: 0.5rem;
   margin-bottom: 1.5rem;
 }
@@ -570,6 +610,7 @@ body {
   font-weight: 600;
   letter-spacing: 0.05em;
   text-transform: uppercase;
+  white-space: nowrap;
 }
 
 .project-title {
