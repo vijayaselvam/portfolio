@@ -195,19 +195,8 @@ fetchWeather();
 // 1. Auto-update weather every 5 minutes (300000ms) without refreshing the page
 setInterval(fetchWeather, 300000);
 
-// 2. Allow user to manually update weather by clicking the widget
-const weatherWidgetElement = document.getElementById('weather-widget');
-if (weatherWidgetElement) {
-  weatherWidgetElement.style.cursor = 'pointer';
-  weatherWidgetElement.title = 'Click to refresh weather';
-
-  weatherWidgetElement.addEventListener('click', async () => {
-    // Briefly fade out to indicate it's fetching new data
-    weatherWidgetElement.style.opacity = '0.5';
-    await fetchWeather();
-    weatherWidgetElement.style.opacity = '1';
-  });
-}
+// Weather data automatically refreshes every 5 minutes.
+// Click events are handled purely by widget.onclick to instantly replay animations without jerks.
 
 let weatherTimer1;
 let weatherTimer2;
