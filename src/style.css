@@ -945,8 +945,8 @@ footer {
   width: 100vw;
   height: 100vh;
   pointer-events: none;
-  z-index: -1;
-  /* Behind content, over background */
+  z-index: 9999;
+  /* Over everything so particles fall realistically over the navbar */
   overflow: hidden;
 }
 
@@ -1408,7 +1408,7 @@ footer {
   left: 0;
   width: 100vw;
   height: 100vh;
-  z-index: -3;
+  z-index: 9999;
   pointer-events: none;
   background: radial-gradient(circle at top right, rgba(144, 213, 255, 0.15) 0%, transparent 70%),
     radial-gradient(circle at bottom left, rgba(255, 255, 255, 0.05) 0%, transparent 50%);
