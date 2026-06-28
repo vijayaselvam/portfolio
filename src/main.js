@@ -205,23 +205,23 @@ window.isNightGlobal = false; // Used to track day/night for weather effects
 
 // Helper to spawn a premium moon
 function createMoon(extraClass = '') {
-    const moonWrapper = document.createElement('div');
-    moonWrapper.className = `moon-wrapper ${extraClass}`.trim();
-    
-    const moon = document.createElement('div');
-    moon.className = 'moon';
-    moonWrapper.appendChild(moon);
+  const moonWrapper = document.createElement('div');
+  moonWrapper.className = `moon-wrapper ${extraClass}`.trim();
 
-    // Drifting clouds passing in front of the moon
-    for (let i = 0; i < 2; i++) {
-        const cloud = document.createElement('div');
-        cloud.className = 'moon-cloud';
-        cloud.style.animationDelay = `${i * 12}s`;
-        cloud.style.top = `${20 + (i * 40)}%`;
-        moonWrapper.appendChild(cloud);
-    }
-    
-    return moonWrapper;
+  const moon = document.createElement('div');
+  moon.className = 'moon';
+  moonWrapper.appendChild(moon);
+
+  // Drifting clouds passing in front of the moon
+  for (let i = 0; i < 2; i++) {
+    const cloud = document.createElement('div');
+    cloud.className = 'moon-cloud';
+    cloud.style.animationDelay = `${i * 12}s`;
+    cloud.style.top = `${20 + (i * 40)}%`;
+    moonWrapper.appendChild(cloud);
+  }
+
+  return moonWrapper;
 }
 
 // Helper function to spawn weather particles
@@ -241,30 +241,30 @@ function applyWeatherEffect(type, durationMs = 3000, forceNight = null) {
     const flash = document.createElement('div');
     flash.className = 'lightning-flash';
     container.appendChild(flash);
-    
+
     // Add the top-right focal storm cloud
     const cloud = document.createElement('div');
     cloud.className = 'storm-cloud';
     container.appendChild(cloud);
-    
+
     // Add realistic lightning bolts striking from the cloud
     const boltCount = type === 'storm' ? 2 : 1;
     for (let i = 0; i < boltCount; i++) {
-        const bolt = document.createElement('div');
-        bolt.className = 'lightning-bolt';
-        
-        // Position them precisely under the cloud in the top right
-        if (i === 0) {
-            bolt.style.right = '80px';
-            bolt.style.animationDelay = '0.5s';
-        } else {
-            bolt.style.right = '180px';
-            bolt.style.animationDelay = '2.5s';
-            bolt.style.transform = 'scaleX(-1) scaleY(0.8)';
-        }
+      const bolt = document.createElement('div');
+      bolt.className = 'lightning-bolt';
 
-        // Premium crisp glowing SVG lightning bolt
-        bolt.innerHTML = `
+      // Position them precisely under the cloud in the top right
+      if (i === 0) {
+        bolt.style.right = '80px';
+        bolt.style.animationDelay = '0.5s';
+      } else {
+        bolt.style.right = '180px';
+        bolt.style.animationDelay = '2.5s';
+        bolt.style.transform = 'scaleX(-1) scaleY(0.8)';
+      }
+
+      // Premium crisp glowing SVG lightning bolt
+      bolt.innerHTML = `
         <svg viewBox="0 0 100 200" preserveAspectRatio="none" style="width:100%; height:100%;">
             <filter id="glow-${i}">
                 <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
@@ -276,7 +276,7 @@ function applyWeatherEffect(type, durationMs = 3000, forceNight = null) {
             <polygon points="70,0 20,90 55,90 0,200 90,100 45,100 100,0" fill="#ffffff" filter="url(#glow-${i})" />
         </svg>
         `;
-        container.appendChild(bolt);
+      container.appendChild(bolt);
     }
   }
 
@@ -311,9 +311,9 @@ function applyWeatherEffect(type, durationMs = 3000, forceNight = null) {
     }
   } else if (type === 'cool') {
     const celestial = isNight ? createMoon('moon-cool') : (() => {
-        const el = document.createElement('div');
-        el.className = 'sun sun-cool';
-        return el;
+      const el = document.createElement('div');
+      el.className = 'sun sun-cool';
+      return el;
     })();
     container.appendChild(celestial);
 
@@ -343,12 +343,12 @@ function applyWeatherEffect(type, durationMs = 3000, forceNight = null) {
     }
   } else if (type === 'rain' || type === 'snow' || type === 'storm' || type === 'thunder') {
     if (type === 'rain' || type === 'snow') {
-        const celestial = isNight ? createMoon(`moon-${type}`) : (() => {
-            const el = document.createElement('div');
-            el.className = `sun sun-${type}`;
-            return el;
-        })();
-        container.appendChild(celestial);
+      const celestial = isNight ? createMoon(`moon-${type}`) : (() => {
+        const el = document.createElement('div');
+        el.className = `sun sun-${type}`;
+        return el;
+      })();
+      container.appendChild(celestial);
     }
 
     const isRain = type === 'rain' || type === 'storm' || type === 'thunder';
@@ -457,37 +457,41 @@ if (flipper && backText && loveIcon) {
 // ==========================================
 // FOR TESTING PURPOSES ONLY: Weather Panel
 // ==========================================
-const testPanel = document.createElement('div');
-testPanel.style.position = 'fixed';
-testPanel.style.bottom = '10px';
-testPanel.style.left = '10px';
-testPanel.style.zIndex = '9999';
-testPanel.style.background = 'rgba(0,0,0,0.8)';
-testPanel.style.padding = '10px';
-testPanel.style.borderRadius = '8px';
-testPanel.style.display = 'flex';
-testPanel.style.gap = '5px';
-testPanel.style.flexWrap = 'wrap';
-testPanel.style.maxWidth = '250px';
+const ENABLE_TEST_PANEL = false; // Set to true to show weather test buttons
 
-const scenarios = ['sunny', 'night', 'cool', 'rain', 'snow', 'storm', 'thunder'];
-scenarios.forEach(type => {
-  const btn = document.createElement('button');
-  btn.innerText = type;
-  btn.style.padding = '5px 10px';
-  btn.style.fontSize = '12px';
-  btn.style.cursor = 'pointer';
-  btn.style.background = 'var(--accent-2, #4FACFE)';
-  btn.style.color = '#fff';
-  btn.style.border = 'none';
-  btn.style.borderRadius = '4px';
-  btn.style.textTransform = 'capitalize';
-  
-  btn.onclick = () => {
-    applyWeatherEffect(type, 5000); // 5 seconds for easy viewing
-  };
-  
-  testPanel.appendChild(btn);
-});
+if (ENABLE_TEST_PANEL) {
+  const testPanel = document.createElement('div');
+  testPanel.style.position = 'fixed';
+  testPanel.style.bottom = '10px';
+  testPanel.style.left = '10px';
+  testPanel.style.zIndex = '9999';
+  testPanel.style.background = 'rgba(0,0,0,0.8)';
+  testPanel.style.padding = '10px';
+  testPanel.style.borderRadius = '8px';
+  testPanel.style.display = 'flex';
+  testPanel.style.gap = '5px';
+  testPanel.style.flexWrap = 'wrap';
+  testPanel.style.maxWidth = '250px';
 
-document.body.appendChild(testPanel);
+  const scenarios = ['sunny', 'night', 'cool', 'rain', 'snow', 'storm', 'thunder'];
+  scenarios.forEach(type => {
+    const btn = document.createElement('button');
+    btn.innerText = type;
+    btn.style.padding = '5px 10px';
+    btn.style.fontSize = '12px';
+    btn.style.cursor = 'pointer';
+    btn.style.background = 'var(--accent-2, #4FACFE)';
+    btn.style.color = '#fff';
+    btn.style.border = 'none';
+    btn.style.borderRadius = '4px';
+    btn.style.textTransform = 'capitalize';
+
+    btn.onclick = () => {
+      applyWeatherEffect(type, 5000); // 5 seconds for easy viewing
+    };
+
+    testPanel.appendChild(btn);
+  });
+
+  document.body.appendChild(testPanel);
+}
