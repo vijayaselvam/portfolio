@@ -534,7 +534,7 @@ if (flipper && backText && loveIcon) {
 // ==========================================
 // FOR TESTING PURPOSES ONLY: Weather Panel
 // ==========================================
-const ENABLE_TEST_PANEL = true; // Set to true to show weather test buttons
+const ENABLE_TEST_PANEL = false; // Set to true to show weather test buttons
 
 if (ENABLE_TEST_PANEL) {
   const testPanel = document.createElement('div');
