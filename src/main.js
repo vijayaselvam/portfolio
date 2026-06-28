@@ -580,3 +580,51 @@ if (hamburger && navLinks) {
     });
   });
 }
+
+// ==========================================
+// 10. Motivational Word Cycle Hover Effect
+// ==========================================
+const cycleElements = document.querySelectorAll('.extraordinary-hover');
+const words = ['meaningful', 'impactful', 'innovative', 'extraordinary'];
+
+cycleElements.forEach(el => {
+  // Ensure the element behaves as an inline block for perfect text alignment
+  el.style.display = 'inline-block';
+  el.style.transition = 'opacity 0.2s ease';
+  
+  el.addEventListener('mouseenter', async () => {
+    if (el.dataset.cycling === "true") return; 
+    el.dataset.cycling = "true";
+    
+    // Lock the width before changing text to PREVENT JIGGLING!
+    const currentWidth = el.offsetWidth;
+    el.style.width = `${currentWidth}px`;
+    el.style.textAlign = 'center';
+    
+    const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+    
+    // Cycle through words
+    for (let i = 0; i < words.length; i++) {
+      el.style.opacity = '0';
+      await sleep(200);
+      
+      const textSpan = el.querySelector('.gradient-text');
+      if (textSpan) {
+        textSpan.innerText = words[i];
+      } else {
+        el.innerText = words[i]; // Fallback
+      }
+      
+      el.style.opacity = '1';
+      
+      // Hold the word, unless it's the last one
+      if (i < words.length - 1) {
+        await sleep(600);
+      }
+    }
+    
+    // Unlock width to allow for responsive browser resizing again
+    el.style.width = 'auto';
+    el.dataset.cycling = "false";
+  });
+});
