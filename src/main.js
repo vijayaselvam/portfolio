@@ -676,3 +676,17 @@ cycleElements.forEach(el => {
   el.addEventListener('click', startCycle);
   el.addEventListener('touchstart', startCycle, { passive: false });
 });
+
+// ==========================================
+// 11. Top Scroll Progress Bar
+// ==========================================
+window.addEventListener('scroll', () => {
+  const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+  const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+  const scrolled = (winScroll / height) * 100;
+  
+  const progressBar = document.getElementById('scroll-progress');
+  if (progressBar) {
+    progressBar.style.width = scrolled + '%';
+  }
+}, { passive: true });

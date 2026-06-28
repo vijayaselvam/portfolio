@@ -167,6 +167,37 @@ body {
     filter: hue-rotate(90deg) brightness(1.6);
   }
 }
+/* =========================================
+   CUSTOM DARK MODE SCROLLBAR
+========================================= */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-color);
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 242, 254, 0.5);
+}
+
+/* =========================================
+   TOP SCROLL PROGRESS BAR
+========================================= */
+#scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 0%;
+  height: 3px;
+  background: var(--gradient-primary);
+  z-index: 9999;
+  transition: width 0.1s ease-out;
+  box-shadow: 0 0 10px rgba(0, 242, 254, 0.6);
+}
 
 /* On touch devices where hover isn't possible, animate it automatically for a premium feel */
 @media (hover: none) {
