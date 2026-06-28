@@ -601,7 +601,12 @@ cycleElements.forEach(el => {
   el.style.display = 'inline-block';
   el.style.transition = 'opacity 0.2s ease';
   
-  el.addEventListener('mouseenter', async () => {
+  const startCycle = async (e) => {
+    if (e && e.type === 'touchstart') {
+      // Prevent standard touch behaviors like text selection on spam tap
+      e.preventDefault(); 
+    }
+    
     if (el.dataset.cycling === "true") return; 
     el.dataset.cycling = "true";
     
@@ -612,9 +617,22 @@ cycleElements.forEach(el => {
     
     const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
     
+    // Add transform and filter to the CSS transition for the slam effect
+    el.style.transition = 'opacity 0.2s ease, transform 0.4s cubic-bezier(0.25, 1, 0.5, 1), filter 0.3s ease';
+    
     // Cycle through words
     for (let i = 0; i < words.length; i++) {
       el.style.opacity = '0';
+      
+      // If it's the final word, start it huge, slightly higher, and blurred
+      if (i === words.length - 1) {
+        el.style.transform = 'scale(1.5) translateY(-10px)';
+        el.style.filter = 'blur(10px)';
+      } else {
+        el.style.transform = 'scale(1) translateY(0)';
+        el.style.filter = 'blur(0)';
+      }
+      
       await sleep(200);
       
       const textSpan = el.querySelector('.gradient-text');
@@ -626,6 +644,22 @@ cycleElements.forEach(el => {
       
       el.style.opacity = '1';
       
+      // If it's the final word, slam it back into place and sharpen it
+      if (i === words.length - 1) {
+        el.style.transform = 'scale(1) translateY(0)';
+        el.style.filter = 'blur(0)';
+        
+        // Add the cinematic water wave flow effect
+        if (textSpan) {
+          textSpan.classList.add('water-wave');
+          
+          // Remove the effect after 3 seconds
+          setTimeout(() => {
+            textSpan.classList.remove('water-wave');
+          }, 3000);
+        }
+      }
+      
       // Hold the word, unless it's the last one
       if (i < words.length - 1) {
         await sleep(600);
@@ -635,5 +669,10 @@ cycleElements.forEach(el => {
     // Unlock width to allow for responsive browser resizing again
     el.style.width = 'auto';
     el.dataset.cycling = "false";
-  });
+  };
+
+  // Bind to both mouse and touch/click events for cross-device reliability
+  el.addEventListener('mouseenter', startCycle);
+  el.addEventListener('click', startCycle);
+  el.addEventListener('touchstart', startCycle, { passive: false });
 });
