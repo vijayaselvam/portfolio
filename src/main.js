@@ -1,10 +1,14 @@
 import './style.css';
 
-// 1. Navbar Scroll Effect
+// 1. Navbar & Hero Scroll Effect
 const header = document.querySelector('.header');
+const heroContent = document.querySelector('.hero-content');
 
 window.addEventListener('scroll', () => {
-  if (window.scrollY > 50) {
+  const scrollY = window.scrollY;
+  
+  // Trigger header solid background almost immediately to prevent text bleed-through
+  if (scrollY > 10) {
     header.classList.add('scrolled');
   } else {
     header.classList.remove('scrolled');

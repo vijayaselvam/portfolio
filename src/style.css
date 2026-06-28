@@ -336,15 +336,13 @@ body {
   width: 100%;
   z-index: 1000;
   padding: 1.5rem 0;
+  background: rgba(3, 3, 5, 0.98);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
   transition: var(--transition);
 }
 
 .header.scrolled {
   padding: 1rem 0;
-  background: rgba(3, 3, 5, 0.7);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border-bottom: 1px solid var(--surface-border);
 }
 
 .nav-container {
@@ -522,7 +520,7 @@ body {
   min-height: 100dvh;
   display: flex;
   align-items: center;
-  padding-top: 80px;
+  padding-top: 140px;
 }
 
 .hero-container {
