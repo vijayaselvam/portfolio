@@ -80,11 +80,11 @@ for (const card of document.getElementsByClassName("bento-hover")) {
     handleBentoHover(e);
     card.classList.add("touch-hover");
   }, { passive: true });
-  
+
   card.addEventListener("touchend", () => {
     card.classList.remove("touch-hover");
   }, { passive: true });
-  
+
   card.addEventListener("touchcancel", () => {
     card.classList.remove("touch-hover");
   }, { passive: true });
@@ -237,13 +237,13 @@ function applyWeatherEffect(type, durationMs = 3000) {
     ray.className = 'sun-ray';
     sun.appendChild(ray);
     for (let i = 0; i < 30; i++) {
-        const dust = document.createElement('div');
-        dust.className = 'sun-dust';
-        dust.style.left = `${Math.random() * 100}vw`;
-        dust.style.top = `${Math.random() * 100}vh`;
-        dust.style.animationDuration = `${3 + Math.random() * 4}s`;
-        dust.style.animationDelay = `${Math.random() * 2}s`;
-        container.appendChild(dust);
+      const dust = document.createElement('div');
+      dust.className = 'sun-dust';
+      dust.style.left = `${Math.random() * 100}vw`;
+      dust.style.top = `${Math.random() * 100}vh`;
+      dust.style.animationDuration = `${3 + Math.random() * 4}s`;
+      dust.style.animationDelay = `${Math.random() * 2}s`;
+      container.appendChild(dust);
     }
     container.appendChild(sun);
   } else if (type === 'night' || type === 'evening') {
@@ -261,27 +261,27 @@ function applyWeatherEffect(type, durationMs = 3000) {
       container.appendChild(star);
     }
   } else if (type === 'cool') {
-     const mist1 = document.createElement('div');
-     mist1.className = 'mist mist-1';
-     const mist2 = document.createElement('div');
-     mist2.className = 'mist mist-2';
-     container.appendChild(mist1);
-     container.appendChild(mist2);
+    const mist1 = document.createElement('div');
+    mist1.className = 'mist mist-1';
+    const mist2 = document.createElement('div');
+    mist2.className = 'mist mist-2';
+    container.appendChild(mist1);
+    container.appendChild(mist2);
 
-     for (let i = 0; i < 20; i++) {
-       const frost = document.createElement('div');
-       frost.className = 'frost';
-       frost.style.left = `${Math.random() * 100}vw`;
-       frost.style.top = `${Math.random() * 100}vh`;
-       frost.style.animationDuration = `${4 + Math.random() * 4}s`;
-       frost.style.animationDelay = `${Math.random() * 2}s`;
-       container.appendChild(frost);
-     }
+    for (let i = 0; i < 20; i++) {
+      const frost = document.createElement('div');
+      frost.className = 'frost';
+      frost.style.left = `${Math.random() * 100}vw`;
+      frost.style.top = `${Math.random() * 100}vh`;
+      frost.style.animationDuration = `${4 + Math.random() * 4}s`;
+      frost.style.animationDelay = `${Math.random() * 2}s`;
+      container.appendChild(frost);
+    }
   } else if (type === 'rain' || type === 'snow' || type === 'storm' || type === 'thunder') {
     const isRain = type === 'rain' || type === 'storm' || type === 'thunder';
     const isStorm = type === 'storm' || type === 'thunder';
     const count = isRain ? (isStorm ? 120 : 80) : 40;
-    
+
     for (let i = 0; i < count; i++) {
       const el = document.createElement('div');
       el.classList.add(isRain ? 'rain-drop' : 'snow-flake');
@@ -291,7 +291,7 @@ function applyWeatherEffect(type, durationMs = 3000) {
       el.style.animationDuration = `${duration}s`;
       el.style.animationDelay = `${delay}s`;
       if (isStorm && isRain) {
-          el.classList.add('storm-drop');
+        el.classList.add('storm-drop');
       }
       container.appendChild(el);
     }
@@ -357,11 +357,12 @@ if (flipper && backText && loveIcon) {
     if (flipper.classList.contains('flipped')) return;
 
     const quotes = [
-      "Quality means doing it right when no one is looking.",
-      "Craftsmanship is the marriage of passion and precision.",
-      "Code is poetry written with logic and relentless hard work.",
-      "Great things are done by a series of small things brought together.",
-      "Passion sparks the idea, hard work builds the reality."
+      "Quality is doing it right when no one is looking. - Henry Ford",
+      "Success is no accident. It is hard work. - Pelé",
+      "The harder I work, the more luck I have. - Thomas Jefferson",
+      "Hard work beats talent when talent doesn't work hard. - Tim Notke",
+      "Full effort is full victory. - Mahatma Gandhi",
+      "Success comes before work only in the dictionary. - Vidal Sassoon"
     ];
 
     const randomQuote = quotes[Math.floor(Math.random() * quotes.length)];
