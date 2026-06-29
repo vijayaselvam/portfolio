@@ -154,13 +154,13 @@ body {
 }
 
 .water-wave {
-  animation: water-flow 1.5s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite alternate !important;
+  animation: water-flow 1.5s cubic-bezier(0.45, 0.05, 0.55, 0.95) 2 alternate !important;
 }
 
 @keyframes water-flow {
   0% {
     background-position: 0% 50%;
-    filter: hue-rotate(0deg) brightness(1.2);
+    filter: hue-rotate(0deg) brightness(1);
   }
   100% {
     background-position: 100% 50%;
@@ -223,10 +223,11 @@ body {
 }
 
 .section-title {
-  font-size: 3rem;
+  font-size: clamp(1.2rem, 7vw, 3rem);
   font-weight: 700;
   letter-spacing: -0.03em;
   margin-bottom: 0.5rem;
+  white-space: nowrap;
 }
 
 .section-subtitle {
