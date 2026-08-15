@@ -1679,26 +1679,8 @@ footer {
   transform: rotateX(180deg);
 }
 
-.highlight-en {
-  color: var(--accent-1);
-  font-weight: 600;
-}
-
 .highlight-ta {
   font-family: 'Noto Sans Tamil', sans-serif;
-  font-weight: 600;
-  background: var(--gradient-primary);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  background-size: 200% auto;
-  transition: background-position 0.6s cubic-bezier(0.16, 1, 0.3, 1), filter 0.6s ease;
-}
-
-.copyright-flipper:hover .highlight-ta,
-.copyright-flipper.touch-hover .highlight-ta {
-  background-position: right center;
-  filter: brightness(1.2) hue-rotate(45deg);
 }
 
 /* =========================================
