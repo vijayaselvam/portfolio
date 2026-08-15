@@ -697,3 +697,42 @@ window.addEventListener('scroll', () => {
     progressBar.style.width = scrolled + '%';
   }
 }, { passive: true });
+
+// ==========================================
+// 12. Dynamic Experience Calculation
+// ==========================================
+const calculateExperience = () => {
+  // Joined in April 2020 (Month is 0-indexed, so 3 is April)
+  const startDate = new Date(2020, 3);
+  const currentDate = new Date();
+  
+  let years = currentDate.getFullYear() - startDate.getFullYear();
+  let months = currentDate.getMonth() - startDate.getMonth();
+  
+  if (months < 0) {
+    years--;
+    months += 12;
+  }
+  
+  const totalExperience = (years + (months / 12)).toFixed(1);
+  
+  document.querySelectorAll('.dynamic-experience').forEach(el => {
+    el.innerText = totalExperience;
+  });
+};
+
+calculateExperience();
+
+// ==========================================
+// 13. Mobile Touch Support for Name Flip
+// ==========================================
+const nameFlip = document.querySelector('.name-flip-container');
+if (nameFlip) {
+  nameFlip.addEventListener('touchstart', () => {
+    nameFlip.classList.add('touch-hover');
+  }, { passive: true });
+  
+  nameFlip.addEventListener('touchend', () => {
+    setTimeout(() => nameFlip.classList.remove('touch-hover'), 500);
+  }, { passive: true });
+}
