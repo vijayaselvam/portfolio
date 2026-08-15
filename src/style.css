@@ -185,18 +185,46 @@ body {
 }
 
 /* =========================================
-   TOP SCROLL PROGRESS BAR
+   TOP SCROLL NAME PROGRESS
 ========================================= */
-#scroll-progress {
+.scroll-name-progress {
   position: fixed;
+  top: 2px; /* Fits perfectly in the empty padding space at the top of the header */
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 9999;
+  font-size: 0.6rem;
+  font-weight: 800;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  pointer-events: none;
+  white-space: nowrap;
+  opacity: 0; /* Hidden by default at top of page */
+  transition: opacity 0.3s ease;
+}
+
+.scroll-name-bg {
+  color: rgba(255, 255, 255, 0.15);
+}
+
+.scroll-name-fill {
+  position: absolute;
   top: 0;
   left: 0;
-  width: 0%;
-  height: 3px;
+  color: transparent;
   background: var(--gradient-primary);
-  z-index: 9999;
-  transition: width 0.1s ease-out;
-  box-shadow: 0 0 10px rgba(0, 242, 254, 0.6);
+  -webkit-background-clip: text;
+  background-clip: text;
+  white-space: nowrap;
+  clip-path: inset(0 100% 0 0); /* 100% clipped initially */
+}
+
+@media (max-width: 768px) {
+  .scroll-name-progress {
+    font-size: 0.5rem; /* Even smaller on mobile to ensure zero overlap */
+    letter-spacing: 2px;
+    top: 2px;
+  }
 }
 
 /* On touch devices where hover isn't possible, animate it automatically for a premium feel */

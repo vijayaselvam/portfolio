@@ -698,8 +698,16 @@ window.addEventListener('scroll', () => {
   const scrolled = (winScroll / height) * 100;
 
   const progressBar = document.getElementById('scroll-progress');
+  const progressWrapper = document.getElementById('scroll-progress-wrapper');
+  
   if (progressBar) {
-    progressBar.style.width = scrolled + '%';
+    // Reveal text from left to right using clip-path
+    progressBar.style.clipPath = `inset(0 ${100 - scrolled}% 0 0)`;
+  }
+  
+  if (progressWrapper) {
+    // Hide completely when at the top of the page
+    progressWrapper.style.opacity = winScroll > 20 ? '0.85' : '0';
   }
 }, { passive: true });
 
