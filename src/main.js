@@ -724,15 +724,15 @@ const calculateExperience = () => {
 calculateExperience();
 
 // ==========================================
-// 13. Mobile Touch Support for Name Flip
+// 13. Mobile Touch Support for Copyright Flip
 // ==========================================
-const nameFlip = document.querySelector('.name-flip-container');
-if (nameFlip) {
-  nameFlip.addEventListener('touchstart', () => {
-    nameFlip.classList.add('touch-hover');
+const copyrightWrapper = document.querySelector('.copyright-wrapper');
+if (copyrightWrapper) {
+  copyrightWrapper.addEventListener('touchstart', () => {
+    copyrightWrapper.classList.add('touch-hover');
   }, { passive: true });
   
-  nameFlip.addEventListener('touchend', () => {
-    setTimeout(() => nameFlip.classList.remove('touch-hover'), 500);
+  copyrightWrapper.addEventListener('touchend', () => {
+    setTimeout(() => copyrightWrapper.classList.remove('touch-hover'), 500);
   }, { passive: true });
 }

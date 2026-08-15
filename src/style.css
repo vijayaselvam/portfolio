@@ -1559,43 +1559,49 @@ footer {
 }
 
 /* =========================================
-   FOOTER NAME HOVER ANIMATION
+   FOOTER COPYRIGHT HOVER ANIMATION
 ========================================= */
-.name-flip-container {
-  display: inline-flex;
-  position: relative;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  font-weight: 600;
-  line-height: 1.4;
+.copyright-wrapper {
   perspective: 1000px;
+  cursor: pointer;
+  margin: 0 auto;
+  padding: 4px 0; /* Stabilizes the hover hit area */
+}
+
+.copyright-flipper {
+  display: grid;
   transform-style: preserve-3d;
   transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
-.name-flip-container:hover,
-.name-flip-container.touch-hover {
+.copyright-wrapper:hover .copyright-flipper,
+.copyright-wrapper.touch-hover .copyright-flipper {
   transform: rotateX(180deg);
 }
 
-.name-en,
-.name-ta {
+.copyright-text.front,
+.copyright-text.back {
+  grid-area: 1 / 1;
   backface-visibility: hidden;
-  white-space: nowrap;
+  margin: 0;
 }
 
-.name-en {
-  color: var(--accent-1);
+.copyright-text.front {
   transform: rotateX(0deg);
 }
 
-.name-ta {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%) rotateX(180deg);
+.copyright-text.back {
+  transform: rotateX(180deg);
+}
+
+.highlight-en {
+  color: var(--accent-1);
+  font-weight: 600;
+}
+
+.highlight-ta {
   font-family: 'Noto Sans Tamil', sans-serif;
+  font-weight: 600;
   background: var(--gradient-primary);
   -webkit-background-clip: text;
   background-clip: text;
@@ -1604,8 +1610,8 @@ footer {
   transition: background-position 0.6s cubic-bezier(0.16, 1, 0.3, 1), filter 0.6s ease;
 }
 
-.name-flip-container:hover .name-ta,
-.name-flip-container.touch-hover .name-ta {
+.copyright-flipper:hover .highlight-ta,
+.copyright-flipper.touch-hover .highlight-ta {
   background-position: right center;
   filter: brightness(1.2) hue-rotate(45deg);
 }
