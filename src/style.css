@@ -1760,6 +1760,30 @@ footer {
 
 .highlight-ta {
   font-family: 'Noto Sans Tamil', sans-serif;
+  transition: all 0.4s ease;
+  display: inline-block;
+}
+
+.copyright-wrapper:hover .highlight-ta,
+.copyright-wrapper.touch-hover .highlight-ta {
+  background: var(--gradient-primary);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  background-size: 200% auto;
+  animation: tamil-gradient-wave 2s linear infinite;
+}
+
+@keyframes tamil-gradient-wave {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
 }
 
 /* =========================================
