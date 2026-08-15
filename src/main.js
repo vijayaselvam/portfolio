@@ -188,9 +188,14 @@ async function fetchWeather() {
     applyWeatherEffect(effectType);
 
     // 4. Update UI and reveal
-    widget.innerHTML = `<span class="weather-icon">${emoji}</span><span class="weather-text">${temp}°C in ${city}</span>`;
+    const iconSpan = widget.querySelector('.weather-icon');
+    const textSpan = widget.querySelector('.weather-text');
+    if (iconSpan && textSpan) {
+      iconSpan.textContent = emoji;
+      textSpan.textContent = `${temp}°C in ${city}`;
+    }
     widget.style.display = 'flex';
-    widget.style.cursor = 'pointer'; // Make it clear it's interactive
+    widget.style.cursor = 'help'; // Make it clear it has a tooltip
 
     // 5. Click event to replay animation
     widget.onclick = () => {
