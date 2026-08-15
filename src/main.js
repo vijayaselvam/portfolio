@@ -727,7 +727,7 @@ const calculateExperience = () => {
     months += 12;
   }
   
-  const totalExperience = (years + (months / 12)).toFixed(1);
+  const totalExperience = `${years}+`;
   
   document.querySelectorAll('.dynamic-experience').forEach(el => {
     el.innerText = totalExperience;
