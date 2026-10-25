@@ -666,6 +666,7 @@ if (hamburger && navLinks) {
 // ==========================================
 const cycleElements = document.querySelectorAll('.extraordinary-hover');
 const words = ['meaningful', 'impactful', 'innovative', 'extraordinary'];
+const wordSwoosh = document.querySelector('.word-swoosh');
 
 cycleElements.forEach(el => {
   // Ensure the element behaves as an inline block for perfect text alignment
@@ -674,6 +675,9 @@ cycleElements.forEach(el => {
 
   const startCycle = async () => {
     const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+
+    // Initial pause on 'extraordinary' so the initial design with the swoosh is appreciated
+    await sleep(3500);
 
     // Infinite loop to run automatically
     while (true) {
@@ -687,10 +691,17 @@ cycleElements.forEach(el => {
 
       // Cycle through words
       for (let i = 0; i < words.length; i++) {
+        const isExtraordinary = (words[i] === 'extraordinary');
+
+        // Hide swoosh when switching to non-extraordinary words
+        if (!isExtraordinary && wordSwoosh) {
+          wordSwoosh.classList.remove('swoosh-active');
+        }
+
         el.style.opacity = '0';
 
         // If it's the final word, start it huge, slightly higher, and blurred
-        if (i === words.length - 1) {
+        if (isExtraordinary) {
           el.style.transform = 'scale(1.5) translateY(-10px)';
           el.style.filter = 'blur(10px)';
         } else {
@@ -709,8 +720,13 @@ cycleElements.forEach(el => {
 
         el.style.opacity = '1';
 
+        // Show swoosh only when 'extraordinary' is displayed
+        if (isExtraordinary && wordSwoosh) {
+          wordSwoosh.classList.add('swoosh-active');
+        }
+
         // If it's the final word, slam it back into place and sharpen it
-        if (i === words.length - 1) {
+        if (isExtraordinary) {
           el.style.transform = 'scale(1) translateY(0)';
           el.style.filter = 'blur(0)';
 
@@ -727,19 +743,19 @@ cycleElements.forEach(el => {
 
         // Hold the word, unless it's the last one
         if (i < words.length - 1) {
-          await sleep(600);
+          await sleep(650);
         }
       }
 
       // Unlock width to allow for responsive browser resizing again
       el.style.width = 'auto';
 
-      // Wait for the water wave effect (3s) plus a small pause before restarting the cycle
+      // Wait for the water wave effect (3s) plus a pause before restarting cycle
       await sleep(4000);
     }
   };
 
-  // Start the automatic cycle immediately on page load
+  // Start the automatic cycle on page load
   startCycle();
 });
 
