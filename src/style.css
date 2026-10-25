@@ -1074,7 +1074,6 @@ body {
   padding: clamp(2rem, 8vw, 5rem);
   text-align: center;
   position: relative;
-  scroll-margin-top: calc(50vh - 300px);
 }
 
 /* =========================================

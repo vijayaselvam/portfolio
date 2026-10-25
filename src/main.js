@@ -1,5 +1,20 @@
 import './style.css';
 
+// Ensure page always loads cleanly at the top on refresh
+if ('scrollRestoration' in history) {
+  history.scrollRestoration = 'manual';
+}
+
+// Strip any lingering hash from address bar on page load/refresh
+if (window.location.hash) {
+  history.replaceState(null, null, window.location.pathname + window.location.search);
+}
+
+window.scrollTo(0, 0);
+window.addEventListener('load', () => {
+  window.scrollTo(0, 0);
+});
+
 // 1. Navbar & Hero Scroll Effect
 const header = document.querySelector('.header');
 const heroContent = document.querySelector('.hero-content');
@@ -47,25 +62,32 @@ function scrollTargetToView(targetId, smooth = true) {
 
   if (targetId === '#contact') {
     const contactBox = targetElement.querySelector('.contact-box') || targetElement;
+    contactBox.classList.add('visible');
+
+    let el = contactBox;
+    let docTop = 0;
+    while (el) {
+      docTop += el.offsetTop;
+      el = el.offsetParent;
+    }
+
+    const header = document.querySelector('.header');
+    // Scrolled header height with 1rem padding is ~87px on desktop, ~78px on mobile
+    const scrolledHeaderH = (winH <= 768) ? 78 : 87;
     const boxH = contactBox.offsetHeight;
-    const availableH = winH - headerHeight;
+    const availableH = winH - scrolledHeaderH;
 
     // Center card vertically between bottom of header and bottom of viewport
     const targetTopInViewport = (availableH > boxH)
-      ? headerHeight + Math.round((availableH - boxH) / 2)
-      : headerHeight + 14;
+      ? scrolledHeaderH + Math.round((availableH - boxH) / 2)
+      : scrolledHeaderH + 14;
 
-    const boxTopDoc = contactBox.getBoundingClientRect().top + window.scrollY;
-    const targetScrollY = Math.max(0, Math.round(boxTopDoc - targetTopInViewport));
+    const targetScrollY = Math.max(0, Math.round(docTop - targetTopInViewport));
 
     window.scrollTo({
       top: targetScrollY,
       behavior: smooth ? 'smooth' : 'auto'
     });
-
-    if (history.pushState) {
-      history.pushState(null, null, '#contact');
-    }
     return;
   }
 
@@ -77,10 +99,6 @@ function scrollTargetToView(targetId, smooth = true) {
     top: Math.max(0, Math.round(offsetPosition)),
     behavior: smooth ? 'smooth' : 'auto'
   });
-
-  if (history.pushState) {
-    history.pushState(null, null, targetId);
-  }
 }
 
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -92,15 +110,6 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     scrollTargetToView(targetId, true);
   });
 });
-
-// Check if initial page load has #contact hash and center it
-if (window.location.hash === '#contact') {
-  window.addEventListener('DOMContentLoaded', () => {
-    setTimeout(() => {
-      scrollTargetToView('#contact', false);
-    }, 120);
-  });
-}
 
 // 4. Bento Box & Glass Button Hover Glow Effect
 const handleBentoHover = (e) => {
