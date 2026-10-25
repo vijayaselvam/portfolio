@@ -683,7 +683,10 @@ cycleElements.forEach(el => {
     while (true) {
       // Lock the width before changing text to PREVENT JIGGLING!
       const currentWidth = el.offsetWidth;
-      el.style.width = `${currentWidth}px`;
+      const isMobile = window.innerWidth <= 768;
+      const maxAllowedWidth = el.parentElement ? el.parentElement.clientWidth : currentWidth;
+      el.style.width = isMobile ? 'auto' : `${Math.min(currentWidth, maxAllowedWidth)}px`;
+      el.style.maxWidth = '100%';
       el.style.textAlign = 'center';
 
       // Add transform and filter to the CSS transition for the slam effect
@@ -700,10 +703,12 @@ cycleElements.forEach(el => {
 
         el.style.opacity = '0';
 
-        // If it's the final word, start it huge, slightly higher, and blurred
+        // If it's the final word, start it slightly higher and blurred
+        // On mobile, keep scale constrained to prevent viewport overflow and page shaking
         if (isExtraordinary) {
-          el.style.transform = 'scale(1.5) translateY(-10px)';
-          el.style.filter = 'blur(10px)';
+          const mobileScreen = window.innerWidth <= 768;
+          el.style.transform = mobileScreen ? 'scale(1.04) translateY(-3px)' : 'scale(1.3) translateY(-8px)';
+          el.style.filter = mobileScreen ? 'blur(2px)' : 'blur(8px)';
         } else {
           el.style.transform = 'scale(1) translateY(0)';
           el.style.filter = 'blur(0)';
@@ -749,6 +754,7 @@ cycleElements.forEach(el => {
 
       // Unlock width to allow for responsive browser resizing again
       el.style.width = 'auto';
+      el.style.maxWidth = '100%';
 
       // Wait for the water wave effect (3s) plus a pause before restarting cycle
       await sleep(4000);
