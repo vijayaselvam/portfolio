@@ -35,27 +35,72 @@ document.querySelectorAll('.reveal').forEach((el) => {
   observer.observe(el);
 });
 
-// 3. Smooth scrolling for internal links
+// 3. Smooth scrolling for internal links with Smart Viewport Centering for Contact
+function scrollTargetToView(targetId, smooth = true) {
+  if (!targetId || targetId === '#') return;
+  const targetElement = document.querySelector(targetId);
+  if (!targetElement) return;
+
+  const header = document.querySelector('.header');
+  const headerHeight = header ? header.offsetHeight : 80;
+  const winH = window.innerHeight;
+
+  if (targetId === '#contact') {
+    const contactBox = targetElement.querySelector('.contact-box') || targetElement;
+    const boxH = contactBox.offsetHeight;
+    const availableH = winH - headerHeight;
+
+    // Center card vertically between bottom of header and bottom of viewport
+    const targetTopInViewport = (availableH > boxH)
+      ? headerHeight + Math.round((availableH - boxH) / 2)
+      : headerHeight + 14;
+
+    const boxTopDoc = contactBox.getBoundingClientRect().top + window.scrollY;
+    const targetScrollY = Math.max(0, Math.round(boxTopDoc - targetTopInViewport));
+
+    window.scrollTo({
+      top: targetScrollY,
+      behavior: smooth ? 'smooth' : 'auto'
+    });
+
+    if (history.pushState) {
+      history.pushState(null, null, '#contact');
+    }
+    return;
+  }
+
+  const headerOffset = headerHeight + 20;
+  const elementPosition = targetElement.getBoundingClientRect().top;
+  const offsetPosition = elementPosition + window.scrollY - headerOffset;
+
+  window.scrollTo({
+    top: Math.max(0, Math.round(offsetPosition)),
+    behavior: smooth ? 'smooth' : 'auto'
+  });
+
+  if (history.pushState) {
+    history.pushState(null, null, targetId);
+  }
+}
+
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
   anchor.addEventListener('click', function (e) {
     const targetId = this.getAttribute('href');
     if (targetId === '#') return;
 
     e.preventDefault();
-    const targetElement = document.querySelector(targetId);
-
-    if (targetElement) {
-      const headerOffset = 100;
-      const elementPosition = targetElement.getBoundingClientRect().top;
-      const offsetPosition = elementPosition + window.scrollY - headerOffset;
-
-      window.scrollTo({
-        top: offsetPosition,
-        behavior: 'smooth'
-      });
-    }
+    scrollTargetToView(targetId, true);
   });
 });
+
+// Check if initial page load has #contact hash and center it
+if (window.location.hash === '#contact') {
+  window.addEventListener('DOMContentLoaded', () => {
+    setTimeout(() => {
+      scrollTargetToView('#contact', false);
+    }, 120);
+  });
+}
 
 // 4. Bento Box & Glass Button Hover Glow Effect
 const handleBentoHover = (e) => {
@@ -699,12 +744,12 @@ window.addEventListener('scroll', () => {
 
   const progressBar = document.getElementById('scroll-progress');
   const progressWrapper = document.getElementById('scroll-progress-wrapper');
-  
+
   if (progressBar) {
     // Reveal text from left to right using clip-path
     progressBar.style.clipPath = `inset(0 ${100 - scrolled}% 0 0)`;
   }
-  
+
   if (progressWrapper) {
     // Hide completely when at the top of the page
     progressWrapper.style.opacity = winScroll > 20 ? '0.85' : '0';
@@ -718,17 +763,17 @@ const calculateExperience = () => {
   // Joined in April 2020 (Month is 0-indexed, so 3 is April)
   const startDate = new Date(2020, 3);
   const currentDate = new Date();
-  
+
   let years = currentDate.getFullYear() - startDate.getFullYear();
   let months = currentDate.getMonth() - startDate.getMonth();
-  
+
   if (months < 0) {
     years--;
     months += 12;
   }
-  
+
   const totalExperience = `${years}+`;
-  
+
   document.querySelectorAll('.dynamic-experience').forEach(el => {
     el.innerText = totalExperience;
   });
@@ -744,8 +789,37 @@ if (copyrightWrapper) {
   copyrightWrapper.addEventListener('touchstart', () => {
     copyrightWrapper.classList.add('touch-hover');
   }, { passive: true });
-  
+
   copyrightWrapper.addEventListener('touchend', () => {
     setTimeout(() => copyrightWrapper.classList.remove('touch-hover'), 500);
   }, { passive: true });
 }
+
+// ==========================================
+// 14. Trust & Proof Badge Hover & Touch Support
+// ==========================================
+const trustProofHitArea = document.getElementById('trustProofHitArea');
+const trustProofBadge = document.getElementById('trustProofBadge');
+if (trustProofHitArea && trustProofBadge) {
+  let unsealTimeout = null;
+
+  trustProofHitArea.addEventListener('mouseenter', () => {
+    clearTimeout(unsealTimeout);
+    trustProofBadge.classList.add('is-sealed');
+  });
+
+  trustProofHitArea.addEventListener('mouseleave', () => {
+    clearTimeout(unsealTimeout);
+    unsealTimeout = setTimeout(() => {
+      trustProofBadge.classList.remove('is-sealed');
+    }, 200);
+  });
+
+  trustProofHitArea.addEventListener('touchstart', (e) => {
+    e.preventDefault();
+    clearTimeout(unsealTimeout);
+    trustProofBadge.classList.toggle('is-sealed');
+  }, { passive: false });
+}
+
+

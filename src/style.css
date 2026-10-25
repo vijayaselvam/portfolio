@@ -162,24 +162,29 @@ body {
     background-position: 0% 50%;
     filter: hue-rotate(0deg) brightness(1);
   }
+
   100% {
     background-position: 100% 50%;
     filter: hue-rotate(90deg) brightness(1.6);
   }
 }
+
 /* =========================================
    CUSTOM DARK MODE SCROLLBAR
 ========================================= */
 ::-webkit-scrollbar {
   width: 8px;
 }
+
 ::-webkit-scrollbar-track {
   background: var(--bg-color);
 }
+
 ::-webkit-scrollbar-thumb {
   background: rgba(255, 255, 255, 0.15);
   border-radius: 4px;
 }
+
 ::-webkit-scrollbar-thumb:hover {
   background: rgba(0, 242, 254, 0.5);
 }
@@ -189,7 +194,8 @@ body {
 ========================================= */
 .scroll-name-progress {
   position: fixed;
-  top: 2px; /* Fits perfectly in the empty padding space at the top of the header */
+  top: 2px;
+  /* Fits perfectly in the empty padding space at the top of the header */
   left: 50%;
   transform: translateX(-50%);
   z-index: 9999;
@@ -199,7 +205,8 @@ body {
   text-transform: uppercase;
   pointer-events: none;
   white-space: nowrap;
-  opacity: 0; /* Hidden by default at top of page */
+  opacity: 0;
+  /* Hidden by default at top of page */
   transition: opacity 0.3s ease;
 }
 
@@ -216,12 +223,14 @@ body {
   -webkit-background-clip: text;
   background-clip: text;
   white-space: nowrap;
-  clip-path: inset(0 100% 0 0); /* 100% clipped initially */
+  clip-path: inset(0 100% 0 0);
+  /* 100% clipped initially */
 }
 
 @media (max-width: 768px) {
   .scroll-name-progress {
-    font-size: 0.5rem; /* Even smaller on mobile to ensure zero overlap */
+    font-size: 0.5rem;
+    /* Even smaller on mobile to ensure zero overlap */
     letter-spacing: 2px;
     top: 2px;
   }
@@ -264,96 +273,123 @@ body {
 }
 
 /* =========================================
-   BUTTONS
+   UNIVERSAL REFLECTIVE BUTTONS SYSTEM
+   (Consistent across all Windows, Mac, Linux & mobile devices)
 ========================================= */
 .btn-primary,
-.btn-secondary {
+.btn-secondary,
+.project-link,
+.contact-pill {
+  position: relative;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: clamp(0.6rem, 2vw, 0.8rem) clamp(1.2rem, 4vw, 1.8rem);
-  border-radius: 100px;
+  font-family: var(--font-main, 'Plus Jakarta Sans', sans-serif);
   font-weight: 600;
   text-decoration: none;
-  transition: var(--transition);
-  cursor: pointer;
-  border: none;
-  font-family: var(--font-main);
   white-space: nowrap;
-}
-
-.btn-primary {
-  background: var(--text-primary);
-  color: var(--bg-color);
-  position: relative;
-  z-index: 1;
+  border-radius: 9999px;
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-appearance: none;
+  appearance: none;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  box-sizing: border-box;
   overflow: hidden;
+  vertical-align: middle;
+  outline: none;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+              border-color 0.3s ease,
+              background 0.3s ease,
+              color 0.3s ease;
 }
 
-.btn-primary::after {
+/* Reflective Sheen Beam on ALL Buttons (Realistic light glint sweeping across on hover) */
+.btn-primary::after,
+.btn-secondary::after,
+.project-link::after,
+.contact-pill::after {
   content: "";
   position: absolute;
-  top: 0;
-  left: -150%;
-  width: 50%;
-  height: 100%;
-  background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.6), transparent);
-  transform: skewX(-20deg);
-  transition: all 0.5s ease;
-  z-index: -1;
+  top: -50%;
+  left: -160%;
+  width: 60%;
+  height: 200%;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.08) 25%,
+    rgba(255, 255, 255, 0.45) 50%,
+    rgba(255, 255, 255, 0.08) 75%,
+    transparent 100%
+  );
+  transform: rotate(25deg);
+  pointer-events: none;
+  z-index: 2;
+  transition: left 0.75s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.btn-primary:hover::after,
+.btn-secondary:hover::after,
+.project-link:hover::after,
+.contact-pill:hover::after {
+  left: 200%;
+}
+
+/* 1. Primary Reflective Button: Polished Pearl / Porcelain with Specular Light Rim */
+.btn-primary {
+  padding: clamp(0.65rem, 2vw, 0.85rem) clamp(1.4rem, 4vw, 2rem);
+  background: linear-gradient(180deg, #ffffff 0%, #f1f5f9 100%);
+  color: #030712 !important;
+  border: 1px solid rgba(255, 255, 255, 0.95);
+  box-shadow: 
+    inset 0 1px 1px 0 rgba(255, 255, 255, 1),
+    inset 0 -1.5px 2px 0 rgba(0, 0, 0, 0.12),
+    0 10px 25px -4px rgba(0, 0, 0, 0.45),
+    0 0 20px rgba(255, 255, 255, 0.2);
 }
 
 .btn-primary:hover {
   transform: translateY(-2px);
-  color: var(--bg-color); /* Fix: Keep text black so it's readable on white button */
-  box-shadow: 0 10px 25px rgba(255, 255, 255, 0.15);
+  color: #030712 !important;
+  background: linear-gradient(180deg, #ffffff 0%, #e2e8f0 100%);
+  box-shadow: 
+    inset 0 1px 1px 0 rgba(255, 255, 255, 1),
+    inset 0 -1.5px 2px 0 rgba(0, 0, 0, 0.12),
+    0 14px 32px -4px rgba(0, 0, 0, 0.55),
+    0 0 35px rgba(255, 255, 255, 0.45);
 }
 
-.btn-primary:hover::after {
-  left: 150%;
-  transition: all 0.6s ease;
-}
-
+/* 2. Secondary Reflective Button: Frosted Obsidian Glass with Cyan Accent Light */
 .btn-secondary {
-  background: rgba(255, 255, 255, 0.03);
+  padding: clamp(0.65rem, 2vw, 0.85rem) clamp(1.4rem, 4vw, 2rem);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.02) 100%);
   color: var(--text-primary);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(10px);
-  position: relative;
-  overflow: hidden;
-  z-index: 1;
-  transition: transform 0.3s ease, border-color 0.3s ease;
-}
-
-.btn-secondary::before {
-  content: "";
-  position: absolute;
-  top: var(--mouse-y, 50%);
-  left: var(--mouse-x, 50%);
-  width: 150px;
-  height: 150px;
-  background: radial-gradient(circle closest-side, rgba(0, 242, 254, 0.3), transparent);
-  transform: translate(-50%, -50%);
-  opacity: 0;
-  transition: opacity 0.3s ease;
-  z-index: -1;
-  pointer-events: none;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+  box-shadow: 
+    inset 0 1px 1px 0 rgba(255, 255, 255, 0.4),
+    inset 0 -1px 2px 0 rgba(0, 0, 0, 0.45),
+    0 10px 25px -4px rgba(0, 0, 0, 0.4);
 }
 
 .btn-secondary:hover {
-  background: rgba(255, 255, 255, 0.08);
-  border-color: rgba(0, 242, 254, 0.5);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.14) 0%, rgba(255, 255, 255, 0.05) 100%);
+  border-color: rgba(0, 242, 254, 0.6);
   transform: translateY(-2px);
-  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
-}
-
-.btn-secondary:hover::before {
-  opacity: 1;
+  box-shadow: 
+    inset 0 1px 1px 0 rgba(255, 255, 255, 0.6),
+    inset 0 -1px 2px 0 rgba(0, 0, 0, 0.4),
+    0 12px 30px -4px rgba(0, 242, 254, 0.3);
 }
 
 .btn-large {
-  padding: clamp(0.8rem, 3vw, 1rem) clamp(1.5rem, 5vw, 2.5rem);
-  font-size: clamp(0.9rem, 3vw, 1.1rem);
+  padding: clamp(0.85rem, 3vw, 1.05rem) clamp(1.6rem, 5vw, 2.6rem);
+  font-size: clamp(0.95rem, 2.5vw, 1.1rem);
 }
 
 /* =========================================
@@ -817,7 +853,8 @@ body {
   border: 1px solid var(--surface-border);
   border-radius: var(--border-radius);
   transition: var(--transition);
-  overflow: hidden; /* Restored to fix edges and collapsing */
+  overflow: hidden;
+  /* Restored to fix edges and collapsing */
   transform-style: preserve-3d;
   perspective: 1000px;
 }
@@ -897,29 +934,34 @@ body {
 }
 
 .project-link {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.8rem;
-  padding: 0.8rem 1.8rem;
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 100px;
+  gap: 0.75rem;
+  padding: 0.75rem 1.6rem;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.02) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
   color: var(--text-primary);
-  text-decoration: none;
-  font-weight: 600;
-  font-size: 1rem;
-  transition: var(--transition);
+  font-size: 0.95rem;
+  box-shadow: 
+    inset 0 1px 1px 0 rgba(255, 255, 255, 0.4),
+    inset 0 -1px 2px 0 rgba(0, 0, 0, 0.45),
+    0 8px 20px -3px rgba(0, 0, 0, 0.4);
   width: max-content;
 }
 
 .project-link:hover {
-  background: var(--text-primary);
-  color: var(--bg-color);
-  box-shadow: 0 10px 20px rgba(255, 255, 255, 0.1);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.98) 0%, rgba(241, 245, 249, 0.95) 100%);
+  color: #030712 !important;
+  border-color: rgba(255, 255, 255, 0.9);
+  transform: translateY(-2px);
+  box-shadow: 
+    inset 0 1px 1px 0 rgba(255, 255, 255, 1),
+    0 12px 28px -3px rgba(255, 255, 255, 0.25),
+    0 0 25px rgba(255, 255, 255, 0.15);
 }
 
 .project-link svg {
-  transition: transform 0.3s ease;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .project-link:hover svg {
@@ -930,8 +972,10 @@ body {
   .project-showcase {
     display: block;
     position: relative;
-    min-height: 400px; /* Comfortable height, eliminates the lengthy feel */
-    overflow: hidden; /* Restored */
+    min-height: 400px;
+    /* Comfortable height, eliminates the lengthy feel */
+    overflow: hidden;
+    /* Restored */
   }
 
   .project-visual {
@@ -953,7 +997,7 @@ body {
     background: linear-gradient(to top, rgba(13, 13, 18, 0.95) 0%, rgba(13, 13, 18, 0.6) 50%, transparent 100%);
     z-index: 2;
   }
-  
+
   .project-info {
     position: absolute;
     bottom: 0;
@@ -963,18 +1007,19 @@ body {
     z-index: 3;
     background: transparent;
   }
-  
+
   .project-title {
     font-size: 1.5rem;
     margin-bottom: 0.5rem;
     text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
   }
-  
+
   .project-desc {
     font-size: 0.95rem;
     margin-bottom: 1rem;
     display: -webkit-box;
-    -webkit-line-clamp: 3; /* Limit description to 3 lines */
+    -webkit-line-clamp: 3;
+    /* Limit description to 3 lines */
     -webkit-box-orient: vertical;
     overflow: hidden;
     text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
@@ -983,9 +1028,10 @@ body {
   .tags {
     margin-bottom: 1rem;
   }
-  
+
   .tag {
-    background: rgba(255, 255, 255, 0.15); /* More visible on dark image */
+    background: rgba(255, 255, 255, 0.15);
+    /* More visible on dark image */
     border: none;
     backdrop-filter: blur(4px);
     -webkit-backdrop-filter: blur(4px);
@@ -1007,6 +1053,20 @@ body {
 /* =========================================
    CONTACT SECTION
 ========================================= */
+.contact.section {
+  padding: clamp(2rem, 5vh, 4rem) 0;
+  min-height: calc(100vh - 90px);
+  min-height: calc(100svh - 90px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+}
+
+.contact.section .container {
+  width: 100%;
+}
+
 .contact-box {
   background: rgba(10, 10, 11, 0.4);
   border: 1px solid var(--surface-border);
@@ -1014,6 +1074,421 @@ body {
   padding: clamp(2rem, 8vw, 5rem);
   text-align: center;
   position: relative;
+  scroll-margin-top: calc(50vh - 300px);
+}
+
+/* =========================================
+   UNIQUE "YOUR TRUST. MY PROOF." BADGE
+========================================= */
+.trust-proof-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: clamp(1.8rem, 4vw, 2.5rem);
+  position: relative;
+  z-index: 2;
+  min-height: 80px;
+}
+
+/* Stable Hit Area Container: generous hit-test bounds so edge hovering or shrinking badge NEVER jiggles */
+.trust-proof-hit-area {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 480px;
+  max-width: 96vw;
+  height: 80px;
+  position: relative;
+  cursor: pointer;
+  user-select: none;
+  background: rgba(0, 0, 0, 0.001); /* Explicit hit surface ensures pointer events are always captured */
+  pointer-events: auto;
+}
+
+.trust-proof-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 430px;
+  max-width: 92vw;
+  height: 56px;
+  min-height: 56px;
+  padding: 0 1.8rem;
+  background: linear-gradient(135deg, rgba(16, 20, 32, 0.85) 0%, rgba(9, 11, 19, 0.95) 100%);
+  backdrop-filter: blur(20px) saturate(190%);
+  -webkit-backdrop-filter: blur(20px) saturate(190%);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 9999px !important;
+  outline: none !important;
+  box-shadow: 
+    0 12px 35px -5px rgba(0, 0, 0, 0.75),
+    0 0 0 1px rgba(255, 255, 255, 0.06),
+    inset 0 1px 1px 0 rgba(255, 255, 255, 0.3),
+    inset 0 -1px 2px 0 rgba(0, 0, 0, 0.5),
+    0 0 30px -8px rgba(0, 242, 254, 0.18);
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  user-select: none;
+  box-sizing: border-box;
+  pointer-events: none; /* Child badge doesn't interrupt pointer capture of parent hit-area */
+  transition: 
+    width 0.42s cubic-bezier(0.16, 1, 0.3, 1),
+    height 0.42s cubic-bezier(0.16, 1, 0.3, 1),
+    background 0.35s ease,
+    border-color 0.35s ease,
+    box-shadow 0.4s ease,
+    transform 0.42s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Hover state: shrinks to a single 68px × 68px 100% round green wax seal medallion */
+.trust-proof-hit-area:hover .trust-proof-badge,
+.trust-proof-badge.is-sealed {
+  width: 68px !important;
+  height: 68px !important;
+  min-width: 68px !important;
+  max-width: 68px !important;
+  min-height: 68px !important;
+  max-height: 68px !important;
+  aspect-ratio: 1 / 1 !important;
+  padding: 0 !important;
+  border-radius: 50% !important;
+  outline: none !important;
+  transform: translateY(-2px) scale(1.05);
+  border: 2.5px solid #34d399 !important;
+  background: radial-gradient(circle at 35% 30%, #10b981 0%, #059669 42%, #047857 78%, #064e3b 100%) !important;
+  box-shadow: 
+    0 14px 35px -4px rgba(5, 150, 105, 0.7),
+    0 0 35px 5px rgba(16, 185, 129, 0.6),
+    inset 0 2px 4px rgba(255, 255, 255, 0.6),
+    inset 0 -3px 5px rgba(0, 0, 0, 0.6) !important;
+}
+
+/* 1. Content: Default Open State with Generous Font Spacing & Kerning */
+.trust-proof-content {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.4rem;
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  opacity: 1;
+  transform: scale(1);
+  filter: blur(0);
+  white-space: nowrap;
+  pointer-events: none;
+  transition: opacity 0.22s ease, transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* On Hover: Smooth fade out and shrink down inward without layout destruction */
+.trust-proof-hit-area:hover .trust-proof-content,
+.trust-proof-badge.is-sealed .trust-proof-content {
+  opacity: 0 !important;
+  transform: scale(0.65) !important;
+  pointer-events: none !important;
+}
+
+.trust-segment {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  flex-shrink: 0;
+}
+
+.trust-badge-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: rgba(0, 242, 254, 0.16);
+  border: 1px solid rgba(0, 242, 254, 0.55);
+  color: #00F2FE;
+  box-shadow: 0 0 12px rgba(0, 242, 254, 0.35);
+  flex-shrink: 0;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.trust-badge-icon svg {
+  display: block;
+}
+
+.trust-text {
+  font-family: var(--font-main, 'Plus Jakarta Sans', sans-serif);
+  font-size: 1.05rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  word-spacing: 0.08em;
+  line-height: 1.4;
+  padding: 3px 0;
+  background: linear-gradient(135deg, #ffffff 15%, #00F2FE 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: inline-block;
+  white-space: nowrap;
+}
+
+.trust-proof-spark {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  opacity: 0.75;
+  flex-shrink: 0;
+}
+
+.spark-line {
+  width: 16px;
+  height: 1px;
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.55));
+}
+
+.spark-line:last-child {
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0.55), rgba(255, 255, 255, 0.05));
+}
+
+.spark-icon {
+  font-size: 0.82rem;
+  color: #4FACFE;
+  text-shadow: 0 0 10px rgba(79, 172, 254, 0.9);
+  display: inline-block;
+  animation: spark-spin 8s linear infinite;
+}
+
+@keyframes spark-spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.proof-segment {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  flex-shrink: 0;
+}
+
+.proof-text {
+  font-family: var(--font-main, 'Plus Jakarta Sans', sans-serif);
+  font-size: 1.05rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  word-spacing: 0.08em;
+  line-height: 1.4;
+  padding: 3px 0;
+  background: linear-gradient(135deg, #ffffff 15%, #10B981 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: inline-block;
+  white-space: nowrap;
+}
+
+.proof-badge-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: rgba(16, 185, 129, 0.18);
+  border: 1px solid rgba(16, 185, 129, 0.5);
+  color: #10B981;
+  box-shadow: 0 0 12px rgba(16, 185, 129, 0.35);
+  flex-shrink: 0;
+}
+
+/* 2. Hover State: Single Round Green Wax Seal with Solid Green & White Thumbs-Up */
+.trust-seal-round {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transform: scale(0.2) rotate(-45deg);
+  pointer-events: none;
+  transition: opacity 0.28s ease 0.05s, transform 0.42s cubic-bezier(0.16, 1, 0.3, 1) 0.05s;
+  z-index: 5;
+  border-radius: 50%;
+}
+
+.trust-proof-hit-area:hover .trust-seal-round,
+.trust-proof-badge.is-sealed .trust-seal-round {
+  opacity: 1;
+  pointer-events: none;
+  transform: scale(1) rotate(0deg);
+}
+
+.seal-ring-outer {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.seal-ring-dashed {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 2px dashed rgba(255, 255, 255, 0.85);
+  box-shadow: inset 0 0 8px rgba(16, 185, 129, 0.5);
+  animation: seal-ring-spin 25s linear infinite;
+}
+
+@keyframes seal-ring-spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Solid Green & White Thumbs-Up Combination Disc */
+.seal-thumbs-disc {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #ffffff;
+  border: 2px solid rgba(255, 255, 255, 0.95);
+  box-shadow: 
+    0 4px 10px rgba(0, 0, 0, 0.45),
+    inset 0 1px 2px rgba(255, 255, 255, 1),
+    inset 0 -2px 3px rgba(0, 0, 0, 0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+  position: relative;
+}
+
+.seal-thumbs-svg {
+  color: #059669;
+  fill: #059669;
+  width: 24px;
+  height: 24px;
+  filter: drop-shadow(0 1px 1px rgba(4, 120, 87, 0.35));
+  animation: seal-thumb-bounce 1.5s ease-in-out infinite;
+}
+
+@keyframes seal-thumb-bounce {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.14) translateY(-1px); }
+}
+
+.badge-light-glint {
+  position: absolute;
+  top: 0;
+  left: -120%;
+  width: 70%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.05) 30%,
+    rgba(255, 255, 255, 0.25) 50%,
+    rgba(255, 255, 255, 0.05) 70%,
+    transparent 100%
+  );
+  transform: skewX(-25deg);
+  pointer-events: none;
+  animation: badge-glint 7s infinite ease-in-out;
+  z-index: 3;
+}
+
+@keyframes badge-glint {
+  0%, 75% { left: -120%; }
+  88%, 100% { left: 180%; }
+}
+
+@media (max-width: 520px) {
+  .trust-proof-hit-area {
+    width: 100%;
+    max-width: 370px;
+    height: 70px;
+  }
+  .trust-proof-badge {
+    width: 340px;
+    max-width: 92vw;
+    padding: 0 0.9rem;
+    min-height: 48px;
+    height: 48px;
+  }
+  .trust-proof-hit-area:hover .trust-proof-badge,
+  .trust-proof-badge.is-sealed {
+    width: 58px !important;
+    height: 58px !important;
+    min-width: 58px !important;
+    min-height: 58px !important;
+    max-width: 58px !important;
+    max-height: 58px !important;
+    border-radius: 50% !important;
+  }
+  .seal-ring-outer {
+    width: 48px;
+    height: 48px;
+  }
+  .seal-thumbs-disc {
+    width: 34px;
+    height: 34px;
+  }
+  .seal-thumbs-svg {
+    width: 20px;
+    height: 20px;
+  }
+  .trust-proof-content {
+    gap: clamp(0.45rem, 2vw, 0.65rem);
+  }
+  .trust-text, .proof-text {
+    font-size: clamp(0.8rem, 2.5vw, 0.88rem);
+    letter-spacing: 0.02em;
+    padding: 2px 0;
+  }
+  .spark-line {
+    width: clamp(8px, 2vw, 12px);
+  }
+  .trust-badge-icon,
+  .proof-badge-icon {
+    width: 17px;
+    height: 17px;
+  }
+  .trust-badge-icon svg,
+  .proof-badge-icon svg {
+    width: 10px;
+    height: 10px;
+  }
+}
+
+@media (max-width: 380px) {
+  .trust-proof-hit-area {
+    max-width: 100%;
+    height: 64px;
+  }
+  .trust-proof-badge {
+    width: 95vw;
+    padding: 0 0.6rem;
+    height: 44px;
+    min-height: 44px;
+  }
+  .trust-proof-content {
+    gap: 0.35rem;
+  }
+  .trust-text, .proof-text {
+    font-size: 0.76rem;
+    letter-spacing: 0.01em;
+  }
+  .spark-line {
+    width: 6px;
+  }
+  .trust-badge-icon,
+  .proof-badge-icon {
+    width: 15px;
+    height: 15px;
+  }
+  .trust-badge-icon svg,
+  .proof-badge-icon svg {
+    width: 9px;
+    height: 9px;
+  }
 }
 
 .contact-title {
@@ -1037,25 +1512,29 @@ body {
 }
 
 .contact-pill {
-  display: inline-flex;
-  align-items: center;
   gap: 0.8rem;
-  padding: clamp(0.8rem, 3vw, 1rem) clamp(1.2rem, 4vw, 1.5rem);
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid var(--surface-border);
-  border-radius: 100px;
+  padding: clamp(0.75rem, 2.5vw, 0.95rem) clamp(1.2rem, 3.5vw, 1.6rem);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.02) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
   color: var(--text-primary);
-  text-decoration: none;
-  font-weight: 500;
-  transition: var(--transition);
-  white-space: nowrap;
-  font-size: clamp(0.85rem, 3vw, 1rem);
+  font-size: clamp(0.88rem, 2.5vw, 1rem);
+  box-shadow: 
+    inset 0 1px 1px 0 rgba(255, 255, 255, 0.35),
+    inset 0 -1px 2px 0 rgba(0, 0, 0, 0.45),
+    0 8px 20px -4px rgba(0, 0, 0, 0.4);
 }
 
 .contact-pill:hover {
-  background: rgba(255, 255, 255, 0.08);
-  transform: translateY(-3px);
-  border-color: rgba(255, 255, 255, 0.2);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0.05) 100%);
+  transform: translateY(-2px);
+  border-color: rgba(255, 255, 255, 0.4);
+  box-shadow: 
+    inset 0 1px 1px 0 rgba(255, 255, 255, 0.6),
+    inset 0 -1px 2px 0 rgba(0, 0, 0, 0.4),
+    0 12px 28px -3px rgba(0, 0, 0, 0.5),
+    0 0 25px rgba(255, 255, 255, 0.12);
 }
 
 .pill-icon {
@@ -1132,7 +1611,8 @@ footer {
   /* Placed behind main text content so giant moon/sun don't cover text */
   overflow: hidden;
   transition: opacity 1s ease;
-  transform: translateZ(-100px); /* Force GPU layering for Safari */
+  transform: translateZ(-100px);
+  /* Force GPU layering for Safari */
 }
 
 .weather-effects {
@@ -1146,7 +1626,8 @@ footer {
   /* Over everything so particles fall realistically over the navbar */
   overflow: hidden;
   transition: opacity 1s ease;
-  transform: translateZ(100px); /* Force GPU layering for Safari */
+  transform: translateZ(100px);
+  /* Force GPU layering for Safari */
 }
 
 .weather-bg-rain {
@@ -1729,7 +2210,8 @@ footer {
   perspective: 1000px;
   cursor: pointer;
   margin: 0 auto;
-  padding: 4px 0; /* Stabilizes the hover hit area */
+  padding: 4px 0;
+  /* Stabilizes the hover hit area */
 }
 
 .copyright-flipper {
@@ -1778,9 +2260,11 @@ footer {
   0% {
     background-position: 0% 50%;
   }
+
   50% {
     background-position: 100% 50%;
   }
+
   100% {
     background-position: 0% 50%;
   }
@@ -1915,11 +2399,13 @@ footer {
     opacity: 0.1;
     transform: scale(0.6);
   }
+
   100% {
     opacity: 1;
     transform: scale(1.4);
   }
 }
+
 @media (max-width: 900px) {
   .sun {
     width: 250px !important;
@@ -1928,14 +2414,14 @@ footer {
     right: 5vw !important;
     opacity: 0.8 !important;
   }
-  
+
   .moon-wrapper {
     width: 80px !important;
     height: 80px !important;
     top: 100px !important;
     opacity: 0.8 !important;
   }
-  
+
   .storm-cloud {
     width: 250px !important;
     height: 200px !important;
