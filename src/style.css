@@ -1068,125 +1068,309 @@ body {
 .contact-box {
   max-width: 860px;
   margin: 0 auto;
-  background: rgba(6, 10, 24, 0.75);
-  border: 1.5px solid rgba(0, 160, 255, 0.28);
-  border-radius: 36px;
-  padding: clamp(2rem, 4.5vw, 3.5rem) clamp(1.4rem, 4vw, 3.2rem);
-  text-align: center;
   position: relative;
+  border-radius: 28px;
+  padding: clamp(2.2rem, 4.5vw, 3.6rem) clamp(1.4rem, 4vw, 3.2rem);
+  text-align: center;
   backdrop-filter: blur(28px) saturate(190%);
   -webkit-backdrop-filter: blur(28px) saturate(190%);
+  overflow: hidden;
+
+  /* Machined Aerospace Titanium Frame with Subtle Ionized Micro-Hues */
+  background:
+    linear-gradient(rgba(7, 11, 22, 0.88), rgba(7, 11, 22, 0.88)) padding-box,
+    linear-gradient(135deg, 
+      rgba(255, 255, 255, 0.38) 0%, 
+      rgba(148, 163, 184, 0.22) 18%, 
+      rgba(0, 242, 254, 0.40) 36%, 
+      rgba(51, 65, 85, 0.36) 52%, 
+      rgba(168, 85, 247, 0.35) 72%, 
+      rgba(148, 163, 184, 0.20) 86%, 
+      rgba(255, 255, 255, 0.30) 100%
+    ) border-box;
+  border: 1.5px solid transparent;
+
+  /* Rugged Milled Bevel Shadow Architecture */
   box-shadow:
-    0 25px 60px -15px rgba(0, 0, 0, 0.85),
-    0 0 55px -10px rgba(0, 140, 255, 0.22),
-    inset 0 1px 1px 0 rgba(255, 255, 255, 0.15);
-  overflow: visible;
+    0 30px 75px -15px rgba(0, 0, 0, 0.95),
+    0 0 0 1px rgba(15, 23, 42, 0.9),
+    inset 0 1.5px 2px rgba(255, 255, 255, 0.32),
+    inset 0 -2px 3px rgba(0, 0, 0, 0.75),
+    0 0 35px -8px rgba(0, 242, 254, 0.16);
+
+  transition: box-shadow 0.5s ease, background 0.5s ease;
+}
+
+.contact-box:hover {
+  background:
+    linear-gradient(rgba(7, 11, 22, 0.84), rgba(7, 11, 22, 0.84)) padding-box,
+    linear-gradient(135deg, 
+      rgba(255, 255, 255, 0.65) 0%, 
+      rgba(148, 163, 184, 0.35) 18%, 
+      rgba(0, 242, 254, 0.70) 36%, 
+      rgba(51, 65, 85, 0.50) 52%, 
+      rgba(168, 85, 247, 0.60) 72%, 
+      rgba(148, 163, 184, 0.30) 86%, 
+      rgba(255, 255, 255, 0.50) 100%
+    ) border-box;
+  box-shadow:
+    0 32px 80px -12px rgba(0, 0, 0, 0.98),
+    0 0 0 1px rgba(0, 242, 254, 0.35),
+    inset 0 1.5px 2px rgba(255, 255, 255, 0.50),
+    inset 0 -2px 3px rgba(0, 0, 0, 0.85),
+    0 0 45px -5px rgba(0, 242, 254, 0.28),
+    0 0 60px -10px rgba(168, 85, 247, 0.22);
 }
 
 /* =========================================
-   FLOATING 3D CORNER ORNAMENTS (TILES / CUBES)
+   DARK OBSIDIAN NEURAL CIRCUIT BOARD TEXTURE
 ========================================= */
-.corner-cube-wrapper {
+.contact-neural-texture {
   position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  overflow: hidden;
   pointer-events: none;
-  z-index: 10;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  z-index: 0;
 }
 
-.cube-top-left {
-  top: -30px;
-  left: -30px;
-}
-
-.cube-bottom-right {
-  bottom: -30px;
-  right: -30px;
-}
-
-.corner-cube {
-  width: 76px;
-  height: 76px;
-  border-radius: 22px;
-  transform: rotate(-35deg);
-  position: relative;
-  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.6s ease;
-}
-
-.cube-cyan-purple {
-  background: linear-gradient(135deg, #00F2FE 0%, #3B82F6 45%, #6366F1 100%);
-  box-shadow:
-    0 10px 24px rgba(0, 0, 0, 0.55),
-    0 0 24px rgba(0, 242, 254, 0.28),
-    0 0 20px rgba(99, 102, 241, 0.2),
-    inset 1.2px 1.2px 2px rgba(255, 255, 255, 0.75),
-    inset -2px -2px 4px rgba(0, 0, 0, 0.35);
-  animation: cube-float-tl 6s ease-in-out infinite alternate;
-}
-
-.cube-purple-cyan {
-  background: linear-gradient(135deg, #7C3AED 0%, #3B82F6 55%, #00F2FE 100%);
-  box-shadow:
-    0 10px 24px rgba(0, 0, 0, 0.55),
-    0 0 24px rgba(124, 58, 237, 0.28),
-    0 0 20px rgba(0, 242, 254, 0.2),
-    inset 1.2px 1.2px 2px rgba(255, 255, 255, 0.75),
-    inset -2px -2px 4px rgba(0, 0, 0, 0.35);
-  animation: cube-float-br 6s ease-in-out infinite alternate;
-}
-
-.corner-streak {
+/* Layer 1: Dark Obsidian Matte Silicon Neural Board Texture */
+.neural-board-plate {
   position: absolute;
-  width: 32px;
-  height: 3px;
-  border-radius: 9999px;
-  transform: rotate(-35deg);
+  inset: 0;
+  background-image: url('./assets/dark_neural_board_bg.jpg');
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  opacity: 0.60;
+  filter: contrast(1.16) brightness(0.92);
+  transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), filter 0.6s ease;
+}
+
+.contact-box:hover .neural-board-plate {
+  opacity: 0.78;
+  filter: contrast(1.22) brightness(1.02);
+}
+
+/* Layer 2: Precision Micro-Hex Neural Mesh Grid */
+.neural-synapse-mesh {
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(rgba(0, 242, 254, 0.08) 1px, transparent 1px),
+    radial-gradient(rgba(168, 85, 247, 0.06) 1px, transparent 1px);
+  background-size: 28px 28px, 56px 56px;
+  background-position: 0 0, 14px 14px;
+  opacity: 0.55;
+}
+
+/* Layer 3: Dynamic Synaptic Energy Glows */
+.neural-traces-glow {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle 360px at 85% 25%, rgba(0, 242, 254, 0.16), transparent 70%),
+    radial-gradient(circle 320px at 15% 75%, rgba(168, 85, 247, 0.14), transparent 70%),
+    radial-gradient(circle 240px at 50% 85%, rgba(0, 242, 254, 0.08), transparent 70%);
+  animation: neural-synapse-pulse 7s ease-in-out infinite alternate;
+  transition: opacity 0.5s ease;
+}
+
+.contact-box:hover .neural-traces-glow {
+  opacity: 1;
+}
+
+@keyframes neural-synapse-pulse {
+  0% {
+    opacity: 0.65;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1.02);
+  }
+}
+
+/* Layer 4: Deep Obsidian Optical Shield (Guarantees 100% Text Clarity & High Contrast) */
+.neural-optical-shield {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 68% 62% at 50% 50%, rgba(6, 10, 22, 0.96) 0%, rgba(6, 10, 22, 0.88) 55%, rgba(5, 8, 18, 0.45) 85%, rgba(5, 8, 18, 0.20) 100%),
+    linear-gradient(180deg, rgba(6, 10, 22, 0.80) 0%, rgba(6, 10, 22, 0.40) 30%, rgba(6, 10, 22, 0.40) 70%, rgba(6, 10, 22, 0.85) 100%);
+}
+
+/* Layer 5: Technical Cybernetic HUD Accents & Corner Brackets */
+.neural-hud-accents {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.hud-corner {
+  position: absolute;
+  width: 22px;
+  height: 22px;
+  opacity: 0.45;
+  transition: opacity 0.4s ease, border-color 0.4s ease, transform 0.4s ease;
+}
+
+.contact-box:hover .hud-corner {
   opacity: 0.85;
 }
 
-.cube-top-left .streak-1 {
-  top: -8px;
-  left: -8px;
-  background: linear-gradient(90deg, #00F2FE, transparent);
+.hud-tl {
+  top: 24px;
+  left: 24px;
+  border-top: 1.5px solid rgba(0, 242, 254, 0.65);
+  border-left: 1.5px solid rgba(0, 242, 254, 0.65);
+  border-top-left-radius: 6px;
 }
 
-.cube-top-left .streak-2 {
-  bottom: -8px;
-  right: -8px;
-  background: linear-gradient(90deg, transparent, #3B82F6);
+.hud-tr {
+  top: 24px;
+  right: 24px;
+  border-top: 1.5px solid rgba(168, 85, 247, 0.65);
+  border-right: 1.5px solid rgba(168, 85, 247, 0.65);
+  border-top-right-radius: 6px;
 }
 
-.cube-bottom-right .streak-1 {
-  top: -8px;
-  left: -8px;
-  background: linear-gradient(90deg, #7C3AED, transparent);
+.hud-bl {
+  bottom: 24px;
+  left: 24px;
+  border-bottom: 1.5px solid rgba(0, 242, 254, 0.65);
+  border-left: 1.5px solid rgba(0, 242, 254, 0.65);
+  border-bottom-left-radius: 6px;
 }
 
-.cube-bottom-right .streak-2 {
-  bottom: -8px;
-  right: -8px;
-  background: linear-gradient(90deg, transparent, #00F2FE);
+.hud-br {
+  bottom: 24px;
+  right: 24px;
+  border-bottom: 1.5px solid rgba(168, 85, 247, 0.65);
+  border-right: 1.5px solid rgba(168, 85, 247, 0.65);
+  border-bottom-right-radius: 6px;
 }
 
-@keyframes cube-float-tl {
-  0% {
-    transform: translateY(0px) rotate(-35deg);
+.hud-tag {
+  position: absolute;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 8px;
+  letter-spacing: 0.16em;
+  font-weight: 600;
+  color: rgba(0, 242, 254, 0.35);
+  text-transform: uppercase;
+  user-select: none;
+  transition: color 0.4s ease, opacity 0.4s ease;
+}
+
+.hud-tag-left {
+  left: 18px;
+  top: 50%;
+  transform: translateY(-50%) rotate(-90deg);
+  transform-origin: center;
+}
+
+.hud-tag-right {
+  right: 18px;
+  top: 50%;
+  transform: translateY(-50%) rotate(90deg);
+  transform-origin: center;
+  color: rgba(168, 85, 247, 0.35);
+}
+
+.contact-box:hover .hud-tag-left {
+  color: rgba(0, 242, 254, 0.65);
+}
+
+.contact-box:hover .hud-tag-right {
+  color: rgba(168, 85, 247, 0.65);
+}
+
+@media (max-width: 650px) {
+  .hud-tag {
+    display: none;
   }
-
-  100% {
-    transform: translateY(-8px) rotate(-32deg);
-  }
 }
 
-@keyframes cube-float-br {
-  0% {
-    transform: translateY(0px) rotate(-35deg);
-  }
+/* =========================================
+   FLUSH RUGGED CHASSIS FASTENERS (AEROSPACE GRADE)
+========================================= */
+.chassis-fastener {
+  position: absolute;
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #243147 0%, #101726 60%, #080d17 100%);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  box-shadow:
+    0 2px 4px rgba(0, 0, 0, 0.8),
+    inset 0 1px 1px rgba(255, 255, 255, 0.45),
+    inset 0 -1px 1px rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  z-index: 3;
+  transition: border-color 0.4s ease, box-shadow 0.4s ease;
+}
 
-  100% {
-    transform: translateY(8px) rotate(-38deg);
-  }
+.fastener-tl {
+  top: 13px;
+  left: 13px;
+}
+
+.fastener-tr {
+  top: 13px;
+  right: 13px;
+}
+
+.fastener-bl {
+  bottom: 13px;
+  left: 13px;
+}
+
+.fastener-br {
+  bottom: 13px;
+  right: 13px;
+}
+
+/* Precision Machined Recessed Hex / Torx Drive Socket */
+.fastener-core {
+  width: 5.5px;
+  height: 5.5px;
+  background: #040711;
+  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.95);
+  transition: background 0.3s ease;
+}
+
+.contact-box:hover .chassis-fastener {
+  border-color: rgba(0, 242, 254, 0.55);
+  box-shadow:
+    0 2px 6px rgba(0, 0, 0, 0.9),
+    0 0 10px rgba(0, 242, 254, 0.28),
+    inset 0 1px 1px rgba(255, 255, 255, 0.6);
+}
+
+.contact-box:hover .fastener-tr,
+.contact-box:hover .fastener-br {
+  border-color: rgba(168, 85, 247, 0.55);
+  box-shadow:
+    0 2px 6px rgba(0, 0, 0, 0.9),
+    0 0 10px rgba(168, 85, 247, 0.28),
+    inset 0 1px 1px rgba(255, 255, 255, 0.6);
+}
+
+.contact-box:hover .fastener-tl .fastener-core,
+.contact-box:hover .fastener-bl .fastener-core {
+  background: #00F2FE;
+  box-shadow: 0 0 5px rgba(0, 242, 254, 0.9);
+}
+
+.contact-box:hover .fastener-tr .fastener-core,
+.contact-box:hover .fastener-br .fastener-core {
+  background: #C084FC;
+  box-shadow: 0 0 5px rgba(168, 85, 247, 0.9);
 }
 
 /* =========================================
@@ -1626,6 +1810,8 @@ body {
 }
 
 .contact-title {
+  position: relative;
+  z-index: 2;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -1642,7 +1828,7 @@ body {
   letter-spacing: -0.02em;
   line-height: 1.15;
   margin-bottom: 0.15rem;
-  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.45);
+  text-shadow: 0 2px 18px rgba(0, 0, 0, 0.9), 0 0 40px rgba(0, 0, 0, 0.85);
 }
 
 .extraordinary-hover-wrapper {
@@ -1668,7 +1854,7 @@ body {
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
-  filter: drop-shadow(0 0 16px rgba(0, 242, 254, 0.28)) drop-shadow(0 0 4px rgba(0, 242, 254, 0.35));
+  filter: drop-shadow(0 3px 18px rgba(0, 0, 0, 0.95)) drop-shadow(0 0 20px rgba(0, 242, 254, 0.25));
   display: inline-block;
   padding-bottom: 0.22em;
   padding-top: 0.05em;
@@ -1706,12 +1892,15 @@ body {
 }
 
 .contact-subtitle {
-  color: #94A3B8;
+  position: relative;
+  z-index: 2;
+  color: #CBD5E1;
   font-size: clamp(0.98rem, 2vw, 1.15rem);
   margin-top: 1.1rem;
   margin-bottom: clamp(2.2rem, 4.5vw, 3.2rem);
   font-weight: 400;
   letter-spacing: 0.01em;
+  text-shadow: 0 2px 14px rgba(0, 0, 0, 0.9);
 }
 
 .subtitle-highlight.cyan {
@@ -1727,6 +1916,8 @@ body {
 }
 
 .contact-methods {
+  position: relative;
+  z-index: 2;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -1746,7 +1937,7 @@ body {
   font-weight: 500;
   font-size: clamp(0.9rem, 1.8vw, 0.98rem);
   color: #FFFFFF !important;
-  background: rgba(6, 12, 28, 0.72);
+  background: rgba(7, 13, 26, 0.84);
   backdrop-filter: blur(18px);
   -webkit-backdrop-filter: blur(18px);
   box-sizing: border-box;
@@ -1867,24 +2058,32 @@ body {
 }
 
 @media (max-width: 900px) {
-  .corner-cube-wrapper {
-    transform: scale(0.68);
-  }
-
-  .cube-top-left {
-    top: -24px;
-    left: -24px;
-  }
-
-  .cube-bottom-right {
-    bottom: -24px;
-    right: -24px;
-  }
+  .fastener-tl { top: 11px; left: 11px; }
+  .fastener-tr { top: 11px; right: 11px; }
+  .fastener-bl { bottom: 11px; left: 11px; }
+  .fastener-br { bottom: 11px; right: 11px; }
 }
 
 @media (max-width: 650px) {
-  .corner-cube-wrapper {
-    display: none;
+  .chassis-fastener {
+    width: 10px;
+    height: 10px;
+  }
+  .fastener-tl { top: 9px; left: 9px; }
+  .fastener-tr { top: 9px; right: 9px; }
+  .fastener-bl { bottom: 9px; left: 9px; }
+  .fastener-br { bottom: 9px; right: 9px; }
+  .fastener-core {
+    width: 4px;
+    height: 4px;
+  }
+
+  .neural-board-plate {
+    opacity: 0.45;
+  }
+
+  .neural-optical-shield {
+    background: radial-gradient(ellipse 95% 85% at 50% 50%, rgba(6, 10, 24, 0.96) 0%, rgba(6, 10, 24, 0.82) 55%, rgba(4, 7, 18, 0.55) 100%);
   }
 
   .contact-box {
